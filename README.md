@@ -1,4 +1,4 @@
-﻿# BudgetBasics
+# BudgetBasics
 
 BudgetBasics is a student-focused budgeting education single-page app built with React, Vite, and React Router. It runs entirely in the browser: there is no backend, database, or real sign-in. Content belongs in local JSON files under `src/data/`.
 

@@ -1,5 +1,426 @@
-﻿.page { min-height: 60vh; padding: var(--space-8) 1.5rem; }
-.content { width: min(100%, 72rem); margin: 0 auto; }
-.eyebrow { margin: 0 0 0.7rem; color: var(--primary); font-size: 0.73rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
-.card { padding: var(--space-5); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--ink); background: var(--surface); box-shadow: var(--shadow-sm); }
-@media (max-width: 600px) { .page { padding: var(--space-6) 1rem; } }
+﻿.page {
+  min-height: 70vh;
+  padding: var(--space-8) 1.5rem;
+}
+
+.content {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: end;
+  padding: 2rem 0 4rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  color: var(--primary);
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 750px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--primary);
+}
+
+.intro {
+  max-width: 620px;
+  margin: 1.5rem 0 0;
+  color: var(--ink);
+  opacity: 0.7;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* =========================
+   HERO BADGE
+========================= */
+
+.heroBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  color: var(--ink);
+}
+
+.badgeIcon {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.heroBadge strong,
+.heroBadge small {
+  display: block;
+}
+
+.heroBadge strong {
+  font-size: 0.9rem;
+}
+
+.heroBadge small {
+  margin-top: 0.2rem;
+  opacity: 0.6;
+  font-size: 0.75rem;
+}
+
+/* =========================
+   INFOGRAPHIC
+========================= */
+
+.infographic {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* =========================
+   STEP BUTTONS
+========================= */
+
+.stepList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stepButton {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.stepButton:hover {
+  transform: translateX(4px);
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+.stepButton.active {
+  border-color: var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.stepNumber {
+  display: grid;
+  width: 2.6rem;
+  height: 2.6rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.stepButton.active .stepNumber {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+}
+
+.stepText strong,
+.stepText small {
+  display: block;
+}
+
+.stepText strong {
+  font-size: 0.95rem;
+}
+
+.stepText small {
+  margin-top: 0.25rem;
+  opacity: 0.55;
+  font-size: 0.75rem;
+}
+
+.arrow {
+  opacity: 0.4;
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.stepButton:hover .arrow,
+.stepButton.active .arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+/* =========================
+   DETAIL CARD
+========================= */
+
+.detailCard {
+  display: flex;
+  min-height: 390px;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 4rem);
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: white;
+}
+
+.detailTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detailIcon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.progress {
+  opacity: 0.7;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.detailLabel {
+  margin: 2.5rem 0 0.5rem;
+  opacity: 0.65;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.detailCard h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.detailDescription {
+  max-width: 500px;
+  margin: 1.2rem 0 0;
+  opacity: 0.8;
+  line-height: 1.7;
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progressBar {
+  height: 5px;
+  margin-top: 2.5rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.progressBar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: white;
+  transition: width 0.35s ease;
+}
+
+/* =========================
+   DETAIL FOOTER
+========================= */
+
+.detailFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.2rem;
+  font-size: 0.75rem;
+}
+
+.nextButton {
+  padding: 0.65rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: transparent;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nextButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(3px);
+}
+
+/* =========================
+   BOTTOM SECTION
+========================= */
+
+.bottomSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 6rem 0 2rem;
+}
+
+.bottomSection h2 {
+  max-width: 500px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.bottomSection h2 span {
+  color: var(--primary);
+}
+
+.bottomSection > p {
+  margin: 0;
+  color: var(--ink);
+  opacity: 0.7;
+  line-height: 1.8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .heroBadge {
+    width: fit-content;
+  }
+
+  .infographic {
+    grid-template-columns: 1fr;
+  }
+
+  .detailCard {
+    min-height: 350px;
+  }
+
+  .bottomSection {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-top: 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: var(--space-6) 1rem;
+  }
+
+  .hero {
+    padding-top: 1rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 13vw, 4rem);
+  }
+
+  .intro {
+    font-size: 0.95rem;
+  }
+
+  .infographic {
+    padding: 0.6rem;
+  }
+
+  .stepButton {
+    gap: 0.7rem;
+    padding: 0.85rem;
+  }
+
+  .stepNumber {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .stepText strong {
+    font-size: 0.85rem;
+  }
+
+  .stepText small {
+    font-size: 0.68rem;
+  }
+
+  .detailCard {
+    min-height: 330px;
+    padding: 1.8rem;
+  }
+
+  .detailCard h2 {
+    font-size: 2rem;
+  }
+
+  .detailFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

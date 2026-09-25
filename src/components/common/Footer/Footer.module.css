@@ -1,0 +1,21 @@
+﻿.footer { margin-top: 2rem; border-top: 1px solid var(--border); background: var(--surface); }
+.main { display: grid; width: min(100% - 3rem, 1160px); grid-template-columns: 1.35fr 0.75fr 0.75fr 1fr; gap: 2.4rem; margin-inline: auto; padding-block: 3.4rem; }
+.brand { display: inline-flex; align-items: center; gap: 0.55rem; color: var(--ink); font-family: Manrope, sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.06em; }
+.brand > span:last-child > span { color: var(--primary); }
+.mark { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 12px 12px 12px 4px; color: var(--on-primary); background: var(--primary); font-size: 1.1rem; }
+.about > p { max-width: 275px; margin: 1rem 0; color: var(--ink-soft); font-size: 0.84rem; line-height: 1.7; }
+.learnLink { color: var(--primary); font-size: 0.77rem; font-weight: 700; }
+.linkGroup { display: grid; align-content: start; gap: 0.7rem; }
+.linkGroup h2 { margin-bottom: 0.25rem; font-family: Manrope, sans-serif; font-size: 0.87rem; letter-spacing: -0.02em; }
+.linkGroup a { color: var(--ink-soft); font-size: 0.8rem; }
+.linkGroup a:hover, .bottom a:hover { color: var(--primary); }
+.note { align-self: start; padding: 1rem 1.05rem; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-soft); }
+.note > span { display: block; margin-bottom: 0.55rem; color: var(--primary); font-size: 1.2rem; }
+.note strong { font-family: Manrope, sans-serif; font-size: 0.9rem; }
+.note p { margin: 0.45rem 0 0; color: var(--ink-soft); font-size: 0.76rem; line-height: 1.6; }
+.bottom { border-top: 1px solid var(--border); }
+.bottom > div { display: flex; width: min(100% - 3rem, 1160px); min-height: 60px; align-items: center; gap: 1.5rem; margin-inline: auto; color: var(--ink-soft); font-size: 0.73rem; }
+.disclaimer { margin-left: auto; }
+.bottom a { color: var(--ink-soft); font-weight: 700; }
+@media (max-width: 900px) { .main { grid-template-columns: 1fr 1fr; gap: 2rem; }.note { max-width: 330px; } }
+@media (max-width: 550px) { .main, .bottom > div { width: calc(100% - 2rem); }.main { grid-template-columns: 1fr 1fr; gap: 1.7rem 1rem; padding-block: 2.5rem; }.about { grid-column: 1 / -1; }.note { grid-column: 1 / -1; max-width: none; }.bottom > div { align-items: flex-start; flex-direction: column; justify-content: center; gap: 0.45rem; padding-block: 0.8rem; }.disclaimer { margin-left: 0; } }

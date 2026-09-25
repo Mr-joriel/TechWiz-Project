@@ -1,0 +1,203 @@
+/* ==========================================================================
+   BudgetBasics — style.css  (shared theme: light + dark)
+   Location in project: src/styles/style.css
+   Import ONCE in src/main.jsx:  import "./styles/style.css";
+   Rule: never hardcode a colour, font or radius in your own CSS. Use the
+   variables below. Dark mode switches automatically when <html> has
+   data-theme="dark" (set by the toggle), or follows the device setting
+   until the user picks one.
+   Fonts: add this to index.html <head>:
+   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+   ========================================================================== */
+
+/* ---------- 1. LIGHT THEME (default) ---------- */
+:root {
+  /* Surfaces */
+  --bg: #f7f7fb;            /* page background */
+  --surface: #ffffff;       /* cards, panels, inputs */
+  --surface-2: #f0f0f8;     /* nested blocks, table stripes, hover */
+  --border: #e3e3f0;        /* outlines and dividers */
+
+  /* Text */
+  --ink: #14142b;           /* headings, primary text */
+  --ink-soft: #5b5b78;      /* descriptions, muted text */
+
+  /* Brand */
+  --primary: #4f46e5;       /* main buttons, links, active nav */
+  --primary-hover: #4338ca;
+  --primary-tint: #eeedfd;  /* soft brand background (badges, icon tiles) */
+  --on-primary: #ffffff;    /* text placed ON --primary */
+
+  /* 50-30-20 meaning colours — keep these consistent everywhere */
+  --needs: #4f46e5;
+  --wants: #f59e0b;
+  --savings: #10b981;
+
+  /* Feedback */
+  --success: #0e9f6e;
+  --success-tint: #e3f6ee;
+  --danger: #e5484d;
+  --danger-tint: #fdeaea;
+
+  /* Effects */
+  --shadow: 0 1px 2px rgba(20, 20, 43, 0.05), 0 10px 28px rgba(20, 20, 43, 0.07);
+}
+
+/* ---------- 2. DARK THEME ---------- */
+:root[data-theme="dark"] {
+  --bg: #0e0e1a;
+  --surface: #171728;
+  --surface-2: #1f1f35;
+  --border: #2b2b45;
+  --ink: #f2f2fa;
+  --ink-soft: #a6a6c4;
+  --primary: #8b85f7;
+  --primary-hover: #a19cf9;
+  --primary-tint: #25254d;
+  --on-primary: #0e0e1a;
+  --needs: #8b85f7;
+  --wants: #fbbf24;
+  --savings: #34d399;
+  --success: #34d399;
+  --success-tint: #12332a;
+  --danger: #f87171;
+  --danger-tint: #3a1a1f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* Follow the device setting until the user chooses */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0e1a;
+    --surface: #171728;
+    --surface-2: #1f1f35;
+    --border: #2b2b45;
+    --ink: #f2f2fa;
+    --ink-soft: #a6a6c4;
+    --primary: #8b85f7;
+    --primary-hover: #a19cf9;
+    --primary-tint: #25254d;
+    --on-primary: #0e0e1a;
+    --needs: #8b85f7;
+    --wants: #fbbf24;
+    --savings: #34d399;
+    --success: #34d399;
+    --success-tint: #12332a;
+    --danger: #f87171;
+    --danger-tint: #3a1a1f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ---------- 3. DESIGN TOKENS (same in both themes) ---------- */
+:root {
+  --font-heading: "Sora", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;       /* page title */
+  --text-2xl: 2.25rem;     /* section title */
+  --text-hero: clamp(2.25rem, 5vw, 3.5rem);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --container: 1120px;
+}
+
+/* ---------- 4. BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; margin: 0 0 var(--space-3); letter-spacing: -0.02em; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--primary); }
+img { max-width: 100%; display: block; }
+
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 var(--space-5); }
+.muted { color: var(--ink-soft); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ---------- 5. SHARED COMPONENT CLASSES (use these, don't reinvent) ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  padding: 12px 22px; border-radius: var(--radius-pill);
+  font: 600 var(--text-base) var(--font-body);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--border); }
+.btn-ghost:hover { background: var(--surface-2); }
+.btn-danger { background: var(--danger-tint); color: var(--danger); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow);
+}
+.badge {
+  display: inline-block; padding: 4px 12px; border-radius: var(--radius-pill);
+  background: var(--primary-tint); color: var(--primary);
+  font-size: var(--text-sm); font-weight: 600;
+}
+
+.field { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+.field label { font-weight: 600; font-size: var(--text-sm); }
+.input {
+  width: 100%; padding: 12px 16px; border-radius: var(--radius-md);
+  border: 1px solid var(--border); background: var(--bg); color: var(--ink);
+  font: inherit;
+}
+.input:focus-visible { border-color: var(--primary); }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+.field-error { color: var(--danger); font-size: var(--text-sm); min-height: 1.2em; }
+
+.progress { height: 10px; background: var(--surface-2); border-radius: var(--radius-pill); overflow: hidden; }
+.progress > span { display: block; height: 100%; border-radius: var(--radius-pill); background: var(--primary); transition: width 0.4s ease; }
+.progress.needs > span { background: var(--needs); }
+.progress.wants > span { background: var(--wants); }
+.progress.savings > span { background: var(--savings); }
+
+.alert { padding: var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); }
+.alert-success { background: var(--success-tint); color: var(--success); }
+.alert-danger { background: var(--danger-tint); color: var(--danger); }
+.alert-info { background: var(--primary-tint); color: var(--ink); }
+
+table.table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.table th, .table td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+.table th { color: var(--ink-soft); font-weight: 600; }
+.table tbody tr:nth-child(even) { background: var(--surface-2); }
+.table-wrap { overflow-x: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

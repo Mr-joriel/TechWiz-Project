@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BudgetBasics — Reference Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   BudgetBasics — style.css  (shared theme: light + dark)
+   Location in project: src/styles/style.css
+   Import ONCE in src/main.jsx:  import "./styles/style.css";
+   Rule: never hardcode a colour, font or radius in your own CSS. Use the
+   variables below. Dark mode switches automatically when <html> has
+   data-theme="dark" (set by the toggle), or follows the device setting
+   until the user picks one.
+   Fonts: add this to index.html <head>:
+   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+   ========================================================================== */
+
+/* ---------- 1. LIGHT THEME (default) ---------- */
+:root {
+  /* Surfaces */
+  --bg: #f7f7fb;            /* page background */
+  --surface: #ffffff;       /* cards, panels, inputs */
+  --surface-2: #f0f0f8;     /* nested blocks, table stripes, hover */
+  --border: #e3e3f0;        /* outlines and dividers */
+
+  /* Text */
+  --ink: #14142b;           /* headings, primary text */
+  --ink-soft: #5b5b78;      /* descriptions, muted text */
+
+  /* Brand */
+  --primary: #4f46e5;       /* main buttons, links, active nav */
+  --primary-hover: #4338ca;
+  --primary-tint: #eeedfd;  /* soft brand background (badges, icon tiles) */
+  --on-primary: #ffffff;    /* text placed ON --primary */
+
+  /* 50-30-20 meaning colours — keep these consistent everywhere */
+  --needs: #4f46e5;
+  --wants: #f59e0b;
+  --savings: #10b981;
+
+  /* Feedback */
+  --success: #0e9f6e;
+  --success-tint: #e3f6ee;
+  --danger: #e5484d;
+  --danger-tint: #fdeaea;
+
+  /* Effects */
+  --shadow: 0 1px 2px rgba(20, 20, 43, 0.05), 0 10px 28px rgba(20, 20, 43, 0.07);
+}
+
+/* ---------- 2. DARK THEME ---------- */
+:root[data-theme="dark"] {
+  --bg: #0e0e1a;
+  --surface: #171728;
+  --surface-2: #1f1f35;
+  --border: #2b2b45;
+  --ink: #f2f2fa;
+  --ink-soft: #a6a6c4;
+  --primary: #8b85f7;
+  --primary-hover: #a19cf9;
+  --primary-tint: #25254d;
+  --on-primary: #0e0e1a;
+  --needs: #8b85f7;
+  --wants: #fbbf24;
+  --savings: #34d399;
+  --success: #34d399;
+  --success-tint: #12332a;
+  --danger: #f87171;
+  --danger-tint: #3a1a1f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* Follow the device setting until the user chooses */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0e1a;
+    --surface: #171728;
+    --surface-2: #1f1f35;
+    --border: #2b2b45;
+    --ink: #f2f2fa;
+    --ink-soft: #a6a6c4;
+    --primary: #8b85f7;
+    --primary-hover: #a19cf9;
+    --primary-tint: #25254d;
+    --on-primary: #0e0e1a;
+    --needs: #8b85f7;
+    --wants: #fbbf24;
+    --savings: #34d399;
+    --success: #34d399;
+    --success-tint: #12332a;
+    --danger: #f87171;
+    --danger-tint: #3a1a1f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ---------- 3. DESIGN TOKENS (same in both themes) ---------- */
+:root {
+  --font-heading: "Sora", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;       /* page title */
+  --text-2xl: 2.25rem;     /* section title */
+  --text-hero: clamp(2.25rem, 5vw, 3.5rem);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --container: 1120px;
+}
+
+/* ---------- 4. BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; margin: 0 0 var(--space-3); letter-spacing: -0.02em; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--primary); }
+img { max-width: 100%; display: block; }
+
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 var(--space-5); }
+.muted { color: var(--ink-soft); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ---------- 5. SHARED COMPONENT CLASSES (use these, don't reinvent) ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  padding: 12px 22px; border-radius: var(--radius-pill);
+  font: 600 var(--text-base) var(--font-body);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--border); }
+.btn-ghost:hover { background: var(--surface-2); }
+.btn-danger { background: var(--danger-tint); color: var(--danger); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow);
+}
+.badge {
+  display: inline-block; padding: 4px 12px; border-radius: var(--radius-pill);
+  background: var(--primary-tint); color: var(--primary);
+  font-size: var(--text-sm); font-weight: 600;
+}
+
+.field { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+.field label { font-weight: 600; font-size: var(--text-sm); }
+.input {
+  width: 100%; padding: 12px 16px; border-radius: var(--radius-md);
+  border: 1px solid var(--border); background: var(--bg); color: var(--ink);
+  font: inherit;
+}
+.input:focus-visible { border-color: var(--primary); }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+.field-error { color: var(--danger); font-size: var(--text-sm); min-height: 1.2em; }
+
+.progress { height: 10px; background: var(--surface-2); border-radius: var(--radius-pill); overflow: hidden; }
+.progress > span { display: block; height: 100%; border-radius: var(--radius-pill); background: var(--primary); transition: width 0.4s ease; }
+.progress.needs > span { background: var(--needs); }
+.progress.wants > span { background: var(--wants); }
+.progress.savings > span { background: var(--savings); }
+
+.alert { padding: var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); }
+.alert-success { background: var(--success-tint); color: var(--success); }
+.alert-danger { background: var(--danger-tint); color: var(--danger); }
+.alert-info { background: var(--primary-tint); color: var(--ink); }
+
+table.table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.table th, .table td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+.table th { color: var(--ink-soft); font-weight: 600; }
+.table tbody tr:nth-child(even) { background: var(--surface-2); }
+.table-wrap { overflow-x: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+
+/* ===== Demo-only layout (in React these live in each page's .module.css) ===== */
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html { scroll-padding-top: 84px; }
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.nav { display: flex; align-items: center; gap: var(--space-4); padding: 12px 0; }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 1.15rem var(--font-heading); color: var(--ink); text-decoration: none; }
+.brand-mark { width: 36px; height: 36px; border-radius: 10px; background: var(--primary); color: var(--on-primary); display: grid; place-items: center; font-size: 18px; }
+.nav-links { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+.nav-links a, .nav-links button.dd { padding: 8px 12px; border-radius: var(--radius-pill); color: var(--ink-soft); text-decoration: none; font: 500 var(--text-sm) var(--font-body); background: none; border: 0; cursor: pointer; }
+.nav-links a:hover, .nav-links button.dd:hover, .nav-links a.active { color: var(--primary); background: var(--primary-tint); }
+.dd-wrap { position: relative; }
+.dd-menu { position: absolute; top: 110%; left: 0; min-width: 210px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow); padding: 6px; display: none; }
+.dd-wrap.open .dd-menu { display: block; }
+.dd-menu a { display: block; border-radius: var(--radius-sm); }
+.icon-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--ink); cursor: pointer; font-size: 16px; }
+.burger { display: none; }
+main { min-height: 70vh; outline: none; }
+.page { padding: var(--space-7) 0 var(--space-8); }
+.page-head { max-width: 62ch; margin-bottom: var(--space-6); }
+.page-head h1 { font-size: var(--text-2xl); }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+.hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-7); align-items: center; padding: var(--space-8) 0 var(--space-7); }
+.hero h1 { font-size: var(--text-hero); }
+.hero h1 em { font-style: normal; color: var(--primary); }
+.hero .lede { font-size: var(--text-lg); color: var(--ink-soft); max-width: 48ch; }
+.cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-5); }
+.split-row { margin-bottom: var(--space-4); }
+.split-row .top { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 6px; }
+.ticker { overflow: hidden; border-block: 1px solid var(--border); background: var(--surface); }
+.ticker-track { display: inline-block; white-space: nowrap; padding: 12px 0; animation: scroll 40s linear infinite; }
+.ticker-track span { margin: 0 32px; color: var(--ink-soft); font-size: var(--text-sm); }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
+.fact b { font: 800 1.6rem var(--font-heading); display: block; color: var(--primary); }
+.tile { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); transition: transform .15s ease; }
+.tile:hover { transform: translateY(-3px); }
+.tile .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--primary-tint); display: grid; place-items: center; font-size: 22px; margin-bottom: 6px; }
+.donut { width: 210px; height: 210px; border-radius: 50%; margin: 0 auto var(--space-4); display: grid; place-items: center; background: conic-gradient(var(--needs) 0 50%, var(--wants) 50% 80%, var(--savings) 80% 100%); }
+.donut > div { width: 140px; height: 140px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; text-align: center; font: 700 1.1rem var(--font-heading); }
+.legend { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; font-size: var(--text-sm); }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.choice-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin: var(--space-4) 0; }
+.choice { padding: 18px; border-radius: var(--radius-md); border: 2px solid var(--border); background: var(--surface); color: var(--ink); font: 700 var(--text-lg) var(--font-heading); cursor: pointer; }
+.choice:hover:not(:disabled) { border-color: var(--primary); }
+.choice.right { border-color: var(--success); background: var(--success-tint); }
+.choice.wrong { border-color: var(--danger); background: var(--danger-tint); }
+.guide { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; justify-content: center; font-weight: 600; }
+.guide .q { padding: 10px 18px; background: var(--primary-tint); border-radius: var(--radius-pill); }
+.qa .opt { display: block; width: 100%; text-align: left; padding: 12px 16px; margin-bottom: 8px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; }
+.qa .opt:hover:not(:disabled) { border-color: var(--primary); }
+.item { border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); margin-bottom: var(--space-3); }
+.item summary { padding: 16px 20px; cursor: pointer; font: 700 var(--text-base) var(--font-heading); list-style: none; display: flex; justify-content: space-between; }
+.item summary::-webkit-details-marker { display: none; }
+.item summary::after { content: "+"; color: var(--primary); font-size: 1.3rem; }
+.item[open] summary::after { content: "–"; }
+.item .body { padding: 0 20px 18px; color: var(--ink-soft); }
+.item .body b { color: var(--ink); }
+.toolbar { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; margin-bottom: var(--space-4); }
+.toolbar .input { flex: 1; min-width: 220px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: var(--space-5); }
+.chip { padding: 8px 16px; border-radius: var(--radius-pill); border: 1px solid var(--border); background: var(--surface); color: var(--ink); font: 500 var(--text-sm) var(--font-body); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+.info-art { height: 140px; border-radius: var(--radius-md) var(--radius-md) 0 0; display: grid; place-items: center; font-size: 54px; }
+.gallery-card { padding: 0; overflow: hidden; }
+.gallery-card .txt { padding: var(--space-4) var(--space-5) var(--space-5); }
+.chat { display: grid; grid-template-columns: 1.6fr 1fr; gap: var(--space-5); align-items: start; }
+.chat-log { height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: var(--space-4); background: var(--bg); border-radius: var(--radius-md); }
+.msg { max-width: 82%; padding: 10px 14px; border-radius: 16px; font-size: var(--text-sm); }
+.msg.bot { background: var(--surface-2); align-self: flex-start; }
+.msg.me { background: var(--primary); color: var(--on-primary); align-self: flex-end; }
+.chat-form { display: flex; gap: 8px; margin-top: var(--space-3); }
+.prompt { display: block; width: 100%; text-align: left; margin-bottom: 8px; }
+.stars { display: flex; gap: 6px; }
+.stars button { font-size: 26px; background: none; border: 0; cursor: pointer; color: var(--border); }
+.stars button.on { color: var(--wants); }
+.site-footer { border-top: 1px solid var(--border); background: var(--surface); padding: var(--space-7) 0 var(--space-6); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--space-6); }
+.footer-grid a { display: block; color: var(--ink-soft); text-decoration: none; padding: 3px 0; }
+.footer-grid a:hover { color: var(--primary); }
+.to-top { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); display: none; box-shadow: var(--shadow); }
+.to-top.show { display: block; }
+.site-map li { margin: 6px 0; }
+.big-num { font: 800 2rem var(--font-heading); }
+@media (max-width: 900px) {
+  .burger { display: block; margin-left: auto; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 16px 16px; }
+  .nav-links.open { display: flex; }
+  .dd-menu { position: static; display: block; box-shadow: none; border: 0; padding: 0 0 0 12px; }
+  .dd-wrap > button.dd { width: 100%; text-align: left; }
+  .hero, .grid-2, .grid-3, .chat, .footer-grid, .facts { grid-template-columns: 1fr; }
+  .hero { padding-top: var(--space-6); }
+}
+</style>
+</head>
+<body>
+<a href="#main" class="sr-only">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true">₦</span>BudgetBasics</a>
+    <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#/" data-r="/">Home</a>
+      <div class="dd-wrap">
+        <button class="dd" aria-expanded="false" aria-haspopup="true">Learn ▾</button>
+        <div class="dd-menu">
+          <a href="#/basics" data-r="/basics">Budgeting Basics</a>
+          <a href="#/needs-wants" data-r="/needs-wants">Needs vs Wants</a>
+          <a href="#/mistakes" data-r="/mistakes">Money Mistakes</a>
+          <a href="#/gallery" data-r="/gallery">Infographics</a>
+        </div>
+      </div>
+      <div class="dd-wrap">
+        <button class="dd" aria-expanded="false" aria-haspopup="true">Plan ▾</button>
+        <div class="dd-menu">
+          <a href="#/calculator" data-r="/calculator">50-30-20 Rule</a>
+          <a href="#/goals" data-r="/goals">Savings Goals</a>
+          <a href="#/planner" data-r="/planner">Expense Planner</a>
+        </div>
+      </div>
+      <a href="#/assistant" data-r="/assistant">AI Chatbot</a>
+      <a href="#/feedback" data-r="/feedback">Feedback</a>
+      <a href="#/contact" data-r="/contact">Contact Us</a>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1"></main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="brand" href="#/" style="margin-bottom:10px"><span class="brand-mark" aria-hidden="true">₦</span>BudgetBasics</a>
+      <p class="muted" style="max-width:38ch">A student project built to make money skills simple. Educational demo only — not financial advice, no real accounts or transactions.</p>
+      <p class="muted" style="font-size:var(--text-sm)">Nothing you type is sent anywhere.</p>
+    </div>
+    <div>
+      <b>Learn &amp; plan</b>
+      <a href="#/basics">Budgeting Basics</a><a href="#/needs-wants">Needs vs Wants</a><a href="#/calculator">50-30-20 Rule</a><a href="#/planner">Expense Planner</a>
+    </div>
+    <div>
+      <b>Site</b>
+      <a href="#/about">About Us</a><a href="#/feedback">Feedback</a><a href="#/contact">Contact Us</a><a href="#/sitemap">Sitemap</a>
+    </div>
+  </div>
+</footer>
+<button class="btn btn-primary to-top" id="toTop" aria-label="Back to top">↑ Top</button>
+
+<script>
+/* ===== helpers ===== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const fmt = n => "₦" + Math.round(n).toLocaleString("en-NG");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+};
+const main = $("#main");
+
+/* ===== theme ===== */
+const root = document.documentElement;
+function setTheme(t) { root.setAttribute("data-theme", t); $("#themeBtn").textContent = t === "dark" ? "☀️" : "🌙"; store.set("bb-theme", t); }
+setTheme(store.get("bb-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+$("#themeBtn").onclick = () => setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+
+/* ===== nav ===== */
+$("#burger").onclick = e => { const o = $("#navLinks").classList.toggle("open"); e.currentTarget.setAttribute("aria-expanded", o); };
+$$(".dd-wrap > button").forEach(b => b.onclick = e => { e.stopPropagation(); const w = b.parentElement, o = !w.classList.contains("open"); $$(".dd-wrap").forEach(x => x.classList.remove("open")); w.classList.toggle("open", o); b.setAttribute("aria-expanded", o); });
+document.addEventListener("click", () => $$(".dd-wrap").forEach(x => x.classList.remove("open")));
+window.addEventListener("scroll", () => $("#toTop").classList.toggle("show", scrollY > 500));
+$("#toTop").onclick = () => scrollTo({ top: 0 });
+
+/* ===== data (in React: src/data/*.json) ===== */
+const TIPS = ["Pay yourself first: move savings out before you spend.", "Track every naira for one week and watch the leaks appear.", "Wait 24 hours before any non-essential purchase.", "A small emergency fund stops one bill from becoming a debt.", "Cancel subscriptions you did not open this month.", "Cook in bulk with friends and split the cost.", "A goal with a date gets done. A goal without one drifts."];
+const NW = [
+  ["Hostel rent for the semester", "need", "Shelter is a need. You cannot study or stay safe without somewhere to live."],
+  ["A third streaming subscription", "want", "You already have entertainment covered. Extra subscriptions are wants."],
+  ["Textbooks for your course", "need", "Required learning materials are needs, though second-hand copies save money."],
+  ["Weekend takeout with friends", "want", "Eating out is a want. Groceries cover the need; takeout is the extra."],
+  ["Transport to campus", "need", "Getting to class is essential for your studies."],
+  ["New sneakers while yours still work", "want", "If the old pair still does the job, replacing it is a want."],
+  ["Data bundle for research and classes", "need", "Reliable data for study counts as a need."],
+  ["In-game purchases", "want", "Fun, but optional. Set a small monthly cap if you buy them."],
+  ["Groceries for the week", "need", "Food is a need. How fancy it gets is where wants sneak in."],
+  ["Repairing the cracked screen of your only phone", "need", "If it is your only phone and you rely on it for study, repair is a need."]
+];
+const MISTAKES = [
+  ["Impulse buying", "A flash sale pops up and you buy headphones you had not planned for.", "Wait 24 hours before any non-essential purchase over a set amount."],
+  ["Ignoring small expenses", "Daily snacks and airtime feel too small to track, but they eat a third of your month.", "Log every expense for one week, even the tiny ones."],
+  ["Paying late", "You miss the hostel fee deadline and a late charge is added.", "Set phone reminders three days before every due date."],
+  ["Unused subscriptions", "You pay for three streaming apps but only watch one.", "Review subscriptions monthly and cancel what you did not open."],
+  ["Spending without a plan", "Your allowance is gone by week two and you are not sure where it went.", "Split income with the 50-30-20 rule on the day it arrives."]
+];
+const INFO = [
+  ["Budgeting", "The 50-30-20 rule at a glance", "Half for needs, a third for wants, a fifth for savings.", "📊", "2026-09-20"],
+  ["Saving", "Build a starter emergency fund", "Start with one month of basic expenses, then grow it.", "🌱", "2026-09-18"],
+  ["Mindset", "Needs vs wants, decided fast", "If you can live, study and stay healthy without it, it is a want.", "⚖️", "2026-09-15"],
+  ["Spending", "Cook more, spend less", "Weekly meal planning and bulk buying cut food bills.", "🍲", "2026-09-12"],
+  ["Tracking", "Track one week, learn a lot", "Writing down every spend reveals quiet habits.", "📝", "2026-09-10"],
+  ["Saving", "Set goals you can actually reach", "Name it, price it, divide by your monthly contribution.", "🎯", "2026-09-08"],
+  ["Debt", "Borrow small, repay first", "Repay expensive debt before growing other savings.", "💳", "2026-09-05"],
+  ["Earning", "Side income without burnout", "One steady gig beats three scattered ones.", "💼", "2026-09-03"],
+  ["Mindset", "The monthly budget cycle", "Plan, spend, track, review, adjust, repeat every month.", "🔁", "2026-09-01"]
+];
+const BOT = [
+  [["hello", "hi ", "hey"], "Hi! I am Penny. Ask me about needs vs wants, the 50-30-20 rule, saving or overspending."],
+  [["need", "want"], "A need keeps you safe and studying (rent, food, transport). A want is nice to have (takeout, games). If you can live without it, it is a want."],
+  [["50", "30", "rule"], "The 50-30-20 rule splits income: 50% needs, 30% wants, 20% savings. It is a starting point, so adjust it to your life."],
+  [["how much", "save", "saving"], "A good starting point is 20% of income. If that is too much, begin with 5% and grow it each month."],
+  [["overspend", "spend less", "food"], "Track every expense for a week, set a weekly cap for wants, and cook in bulk to cut food costs."],
+  [["impulse"], "Try the 24-hour rule: wait a full day before any non-essential purchase. Most urges fade."],
+  [["debt", "borrow", "loan"], "Borrow only for needs, repay the most expensive debt first, and avoid borrowing for wants."],
+  [["emergency"], "An emergency fund covers surprise costs. Aim for one month of basic expenses first."],
+  [["start", "budget"], "Start simple: list your income, list fixed costs, then split what is left into needs, wants and savings."]
+];
+const SUGGESTED = ["What is a need?", "How much should I save?", "How do I avoid overspending?", "What is the 50-30-20 rule?"];
+
+/* ===== pages: each returns html and an init() ===== */
+const pages = {};
+
+pages["/"] = () => ({
+  title: "Home",
+  html: `
+  <div class="container">
+    <section class="hero">
+      <div>
+        <span class="badge">Money skills for students</span>
+        <h1 style="margin-top:14px">Your money, <em>finally making sense.</em></h1>
+        <p class="lede">BudgetBasics turns an allowance, scholarship or part-time pay into a plan you can follow. Learn the basics, then practise with simple tools.</p>
+        <div class="cta-row"><a class="btn btn-primary" href="#/calculator">Try the 50-30-20 calculator</a><a class="btn btn-ghost" href="#/needs-wants">Play Needs vs Wants</a></div>
+        <div class="facts">
+          <div class="fact"><b id="visits">–</b><span class="muted">visits in this browser</span></div>
+          <div class="fact"><b id="clockDate" style="font-size:1.1rem">–</b><span class="muted" id="clockTime"></span></div>
+          <div class="fact"><b>50·30·20</b><span class="muted">the rule to start with</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center"><b>A sample month</b><span class="badge">Demo</span></div>
+        <div class="big-num" style="margin:8px 0 4px">${fmt(200000)}</div>
+        <p class="muted">Monthly income, split three ways</p>
+        ${[["Needs", 50, "needs"], ["Wants", 30, "wants"], ["Savings", 20, "savings"]].map(r => `<div class="split-row"><div class="top"><span>${r[0]}</span><span>${r[1]}%</span></div><div class="progress ${r[2]}"><span style="width:${r[1] * 2}%"></span></div></div>`).join("")}
+      </div>
+    </section>
+  </div>
+  <div class="ticker" aria-label="Money tips ticker"><div class="ticker-track">${[...TIPS, ...TIPS].map(t => `<span>💡 ${t}</span>`).join("")}</div></div>
+  <div class="container page">
+    <div class="grid-2" style="margin-bottom:var(--space-6)">
+      <div class="card" id="nameCard"></div>
+      <div class="card"><span class="badge">Featured tip</span><h3 style="margin-top:12px" id="tip"></h3><p class="muted">A new tip appears every visit to Home.</p></div>
+    </div>
+    <div class="page-head"><h2>Start anywhere</h2></div>
+    <div class="grid-3">
+      ${[["📚", "Budgeting Basics", "Income, expenses, needs, wants, savings.", "/basics"], ["⚖️", "Needs vs Wants", "Sort ten student spending choices.", "/needs-wants"], ["🧮", "50-30-20 Rule", "Split any income in one click.", "/calculator"], ["🎯", "Savings Goals", "How many months until you get there?", "/goals"], ["🧾", "Expense Planner", "Add, edit and remove sample expenses.", "/planner"], ["🤖", "Ask Penny", "Basic money questions, answered.", "/assistant"]].map(t => `<a class="card tile" href="#${t[3]}"><span class="ic">${t[0]}</span><h3>${t[1]}</h3><span class="muted">${t[2]}</span></a>`).join("")}
+    </div>
+  </div>`,
+  init() {
+    const v = (+store.get("bb-visits") || 0) + 1; store.set("bb-visits", v); $("#visits").textContent = v;
+    const tick = () => { const d = new Date(); $("#clockDate").textContent = d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" }); $("#clockTime").textContent = d.toLocaleTimeString("en-GB"); };
+    tick(); clearInterval(window._clock); window._clock = setInterval(() => { if ($("#clockTime")) tick(); }, 1000);
+    $("#tip").textContent = TIPS[Math.floor(Math.random() * TIPS.length)];
+    const nc = $("#nameCard");
+    const draw = () => {
+      const n = store.get("bb-name");
+      nc.innerHTML = n ? `<span class="badge">Welcome back</span><h3 style="margin-top:12px">Hi, ${esc(n)} 👋</h3><p class="muted">Your name is kept only in this browser.</p><button class="btn btn-ghost" id="chg">Change name</button>` :
+        `<span class="badge">Make it yours</span><h3 style="margin-top:12px">What should we call you?</h3><div class="field"><label for="nm">Your name</label><input class="input" id="nm" maxlength="30" placeholder="e.g. Tochi"><span class="field-error" id="nmErr" role="alert"></span></div><button class="btn btn-primary" id="sv">Save name</button><p class="muted" style="margin-top:10px;font-size:var(--text-sm)">Saved in your browser only. No server, no account.</p>`;
+      const sv = $("#sv"); if (sv) sv.onclick = () => { const v = $("#nm").value.trim(); if (!v) { $("#nm").setAttribute("aria-invalid", "true"); $("#nmErr").textContent = "Please enter a name."; return; } store.set("bb-name", v); draw(); };
+      const c = $("#chg"); if (c) c.onclick = () => { store.set("bb-name", ""); draw(); };
+    };
+    draw();
+  }
+});
+
+pages["/basics"] = () => ({
+  title: "Budgeting Basics",
+  html: `<div class="container page">
+    <div class="page-head"><span class="badge">Learn</span><h1 style="margin-top:12px">Budgeting basics</h1><p class="muted">Six ideas that every budget is built from.</p></div>
+    <div class="grid-3">${[["💵", "Income", "Allowance, part-time pay, gifts. Anything coming in."], ["📌", "Fixed expenses", "Same every month: rent, data plan, transport pass."], ["🔀", "Variable expenses", "Changes monthly: food, outings, printing."], ["✅", "Requirements", "What keeps you safe and studying."], ["🛍️", "Wants", "Nice to have, not essential."], ["🐷", "Savings", "Money set aside on purpose."]].map(c => `<div class="card"><h3>${c[0]} ${c[1]}</h3><p class="muted" style="margin:0">${c[2]}</p></div>`).join("")}</div>
+    <div class="grid-2" style="margin-top:var(--space-6)">
+      <div class="card"><h2 style="font-size:var(--text-xl)">Sample student month</h2><p class="muted">Sample values only, in Nigerian naira.</p>
+        <div class="table-wrap"><table class="table"><thead><tr><th>Item</th><th>Type</th><th>Amount</th></tr></thead><tbody>
+        ${[["Allowance", "Income", 80000], ["Hostel contribution", "Fixed", 25000], ["Transport", "Fixed", 8000], ["Food", "Variable", 22000], ["Data and airtime", "Variable", 5000], ["Outings", "Wants", 8000], ["Savings", "Savings", 12000]].map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${fmt(r[2])}</td></tr>`).join("")}</tbody></table></div></div>
+      <div class="card qa" id="qa"><h2 style="font-size:var(--text-xl)">Knowledge check</h2><p><b>Which of these is a fixed expense?</b></p>
+        ${["Weekend takeout", "Monthly hostel fee", "Cinema ticket", "Birthday gift"].map((o, i) => `<button class="opt" data-i="${i}">${o}</button>`).join("")}<div id="qaOut" role="status"></div></div>
+    </div></div>`,
+  init() { $$("#qa .opt").forEach(b => b.onclick = () => { const ok = b.dataset.i === "1"; $$("#qa .opt").forEach(x => x.disabled = true); b.style.borderColor = ok ? "var(--success)" : "var(--danger)"; $("#qaOut").innerHTML = `<div class="alert ${ok ? "alert-success" : "alert-danger"}" style="margin-top:10px">${ok ? "Correct. A hostel fee is the same amount every month." : "Not quite. The hostel fee is fixed: it does not change month to month."}</div>`; }); }
+});
+
+pages["/needs-wants"] = () => ({
+  title: "Needs vs Wants",
+  html: `<div class="container page">
+    <div class="page-head"><span class="badge">Learn</span><h1 style="margin-top:12px">Needs vs Wants</h1><p class="muted">Pick a side, get instant feedback.</p></div>
+    <div class="grid-2"><div class="card" id="game"></div>
+    <div class="card"><h3>Decision guide</h3><p class="muted">Before any non-essential purchase, ask:</p><div class="guide"><span class="q">Is it essential now?</span><span style="color:var(--success)">Yes → Prioritise</span><span style="color:var(--wants)">No → Wait 24 hours</span></div>
+    <div class="alert alert-info" style="margin-top:var(--space-4)">Waiting is free. Many wants fade before the timer ends.</div></div></div></div>`,
+  init() {
+    let i = 0, score = 0; const g = $("#game");
+    const show = () => {
+      if (i >= NW.length) { g.innerHTML = `<h2>You scored ${score} / ${NW.length}</h2><p class="muted">${score >= 8 ? "Great instincts!" : "Good start, play again to sharpen it."}</p><button class="btn btn-primary" id="again">Play again</button>`; $("#again").onclick = () => { i = 0; score = 0; show(); }; return; }
+      const it = NW[i];
+      g.innerHTML = `<div style="display:flex;justify-content:space-between"><span class="muted">Item ${i + 1} of ${NW.length}</span><b>Score: ${score}</b></div><h2 style="margin-top:14px">${it[0]}</h2>
+      <div class="choice-row"><button class="choice" data-a="need">Need</button><button class="choice" data-a="want">Want</button></div><div id="fb" role="status"></div>`;
+      $$(".choice", g).forEach(b => b.onclick = () => {
+        const ok = b.dataset.a === it[1]; if (ok) score++;
+        $$(".choice", g).forEach(x => { x.disabled = true; if (x.dataset.a === it[1]) x.classList.add("right"); });
+        if (!ok) b.classList.add("wrong");
+        $("#fb").innerHTML = `<div class="alert ${ok ? "alert-success" : "alert-danger"}"><b>${ok ? "Correct." : "Not quite."}</b> ${it[2]}</div><button class="btn btn-primary" id="nx" style="margin-top:12px">${i === NW.length - 1 ? "See score" : "Next item"}</button>`;
+        $("#nx").onclick = () => { i++; show(); };
+      });
+    };
+    show();
+  }
+});
+
+pages["/calculator"] = () => ({
+  title: "50-30-20 Rule",
+  html: `<div class="container page">
+    <div class="page-head"><span class="badge">Plan</span><h1 style="margin-top:12px">The 50-30-20 calculator</h1><p class="muted">Enter any monthly income and see the classic student split.</p></div>
+    <div class="grid-2"><div class="card"><div class="field"><label for="inc">Monthly income (₦)</label><input class="input" id="inc" inputmode="decimal" placeholder="e.g. 200000" value="200000"><span class="field-error" id="incErr" role="alert"></span></div>
+      <div id="rows"></div><div class="alert alert-info">This is an estimate for learning only. The split is a guideline and can be adjusted.</div></div>
+    <div class="card"><div class="donut"><div><span class="muted" style="font:500 var(--text-sm) var(--font-body)">Income<br></span><span id="dn">–</span></div></div>
+      <div class="legend"><span><i class="dot" style="background:var(--needs)"></i>Needs 50%</span><span><i class="dot" style="background:var(--wants)"></i>Wants 30%</span><span><i class="dot" style="background:var(--savings)"></i>Savings 20%</span></div></div></div></div>`,
+  init() {
+    const inp = $("#inc"), err = $("#incErr");
+    const run = () => {
+      const raw = inp.value.trim(), v = Number(raw);
+      if (raw === "") { err.textContent = "Please enter your monthly income."; inp.setAttribute("aria-invalid", "true"); $("#rows").innerHTML = ""; $("#dn").textContent = "–"; return; }
+      if (isNaN(v) || v <= 0) { err.textContent = "Enter a number greater than zero."; inp.setAttribute("aria-invalid", "true"); $("#rows").innerHTML = ""; $("#dn").textContent = "–"; return; }
+      err.textContent = ""; inp.removeAttribute("aria-invalid"); $("#dn").textContent = fmt(v);
+      $("#rows").innerHTML = [["Needs", .5, "needs", "Rent, food, transport, data"], ["Wants", .3, "wants", "Streaming, outings, clothes"], ["Savings", .2, "savings", "Emergency fund and goals"]].map(r => `<div class="split-row"><div class="top"><span>${r[0]} · ${r[1] * 100}%</span><span>${fmt(v * r[1])}</span></div><div class="progress ${r[2]}"><span style="width:${r[1] * 100}%"></span></div><small class="muted">${r[3]}</small></div>`).join("");
+    };
+    inp.oninput = run; run();
+  }
+});
+
+const goals = [];
+pages["/goals"] = () => ({
+  title: "Savings Goals",
+  html: `<div class="container page">
+    <div class="page-head"><span class="badge">Plan</span><h1 style="margin-top:12px">Savings goals</h1><p class="muted">Name a goal and see how many months it needs. Goals last only for this visit.</p></div>
+    <div class="grid-2"><div class="card"><h3>New goal</h3>
+      <div class="field"><label for="gn">Goal name</label><input class="input" id="gn" placeholder="New laptop"></div>
+      <div class="grid-2" style="gap:12px"><div class="field"><label for="gt">Target (₦)</label><input class="input" id="gt" inputmode="decimal" placeholder="450000"></div><div class="field"><label for="gs">Saved so far (₦)</label><input class="input" id="gs" inputmode="decimal" placeholder="60000"></div></div>
+      <div class="field"><label for="gm">Monthly contribution (₦)</label><input class="input" id="gm" inputmode="decimal" placeholder="25000"></div>
+      <span class="field-error" id="gErr" role="alert"></span><button class="btn btn-primary" id="gAdd">Add goal</button></div>
+    <div id="gList"></div></div></div>`,
+  init() {
+    const list = $("#gList");
+    const draw = () => { list.innerHTML = goals.length ? goals.map((g, i) => { const left = Math.max(g.t - g.s, 0), pct = Math.min(100, g.s / g.t * 100), mo = left === 0 ? 0 : Math.ceil(left / g.m); return `<div class="card" style="margin-bottom:var(--space-4)"><div style="display:flex;justify-content:space-between"><h3>${esc(g.n)}</h3><button class="btn btn-danger" data-d="${i}" style="padding:6px 14px">Remove</button></div><div class="progress savings"><span style="width:${pct}%"></span></div><p style="margin:10px 0 4px"><b>${fmt(left)}</b> left · <b>${mo === 0 ? "goal reached 🎉" : mo + " month" + (mo > 1 ? "s" : "")}</b></p><p class="muted" style="margin:0;font-size:var(--text-sm)">Tip: automate your ${fmt(g.m)} the day income arrives.</p></div>`; }).join("") : `<div class="card" style="text-align:center"><div style="font-size:40px">🎯</div><h3>No goals yet</h3><p class="muted">Add your first goal and we will show the progress bar and months left.</p></div>`; $$("[data-d]", list).forEach(b => b.onclick = () => { goals.splice(+b.dataset.d, 1); draw(); }); };
+    $("#gAdd").onclick = () => {
+      const n = $("#gn").value.trim(), t = $("#gt").value.trim(), s = $("#gs").value.trim(), m = $("#gm").value.trim(), e = $("#gErr");
+      if (!n || !t || !s || !m) { e.textContent = "Please fill in all four fields."; return; }
+      const T = Number(t), S = Number(s), M = Number(m);
+      if ([T, S, M].some(x => isNaN(x))) { e.textContent = "Amounts must be numbers."; return; }
+      if (T <= 0 || M <= 0 || S < 0) { e.textContent = "Target and contribution must be above zero; saved cannot be negative."; return; }
+      e.textContent = ""; goals.push({ n, t: T, s: S, m: M }); ["gn", "gt", "gs", "gm"].forEach(id => $("#" + id).value = ""); draw();
+    };
+    draw();
+  }
+});
+
+const expenses = []; let budget = 80000;
+pages["/planner"] = () => ({
+  title: "Expense Planner",
+  html: `<div class="container page">
+    <div class="page-head"><span class="badge">Plan</span><h1 style="margin-top:12px">Expense planner demo</h1><p class="muted">Add sample expenses, edit or remove them, and watch the balance change. Entries vanish when you close the tab.</p></div>
+    <div class="grid-2"><div class="card"><div class="field"><label for="bud">Monthly spending budget (₦)</label><input class="input" id="bud" inputmode="decimal" value="80000"></div><hr style="border:0;border-top:1px solid var(--border);margin:var(--space-4) 0"><h3 id="fh">Add an expense</h3>
+      <div class="grid-2" style="gap:12px"><div class="field"><label for="ed">Date</label><input class="input" type="date" id="ed"></div><div class="field"><label for="ec">Category</label><select class="input" id="ec">${["Food", "Transport", "Education", "Entertainment", "Shopping", "Utilities", "Miscellaneous"].map(c => `<option>${c}</option>`).join("")}</select></div></div>
+      <div class="field"><label for="edsc">Description</label><input class="input" id="edsc" placeholder="Campus shuttle"></div>
+      <div class="field"><label for="ea">Amount (₦)</label><input class="input" id="ea" inputmode="decimal" placeholder="1500"></div>
+      <span class="field-error" id="eErr" role="alert"></span><button class="btn btn-primary" id="eAdd">Add expense</button> <button class="btn btn-ghost" id="eCancel" hidden>Cancel edit</button></div>
+    <div><div class="card" id="sum" style="margin-bottom:var(--space-4)"></div><div class="card" id="tbl"></div></div></div></div>`,
+  init() {
+    let editing = -1; $("#ed").value = new Date().toISOString().slice(0, 10);
+    const draw = () => {
+      const total = expenses.reduce((a, e) => a + e.a, 0), rem = budget - total, pct = budget > 0 ? Math.min(100, total / budget * 100) : 0;
+      $("#sum").innerHTML = `<div class="grid-3" style="gap:12px"><div><span class="muted">Planned</span><div class="big-num">${fmt(total)}</div></div><div><span class="muted">Budget</span><div class="big-num">${fmt(budget)}</div></div><div><span class="muted">Remaining</span><div class="big-num" style="color:${rem < 0 ? "var(--danger)" : "var(--success)"}">${fmt(rem)}</div></div></div><div class="progress" style="margin-top:14px"><span style="width:${pct}%;background:${rem < 0 ? "var(--danger)" : "var(--primary)"}"></span></div><p class="muted" style="margin:8px 0 0">${Math.round(pct)}% of your budget is planned.${rem < 0 ? " You are over budget." : ""}</p>`;
+      $("#tbl").innerHTML = expenses.length ? `<div class="table-wrap"><table class="table"><thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th><th></th></tr></thead><tbody>${expenses.map((e, i) => `<tr><td>${e.d}</td><td>${e.c}</td><td>${esc(e.n)}</td><td>${fmt(e.a)}</td><td style="white-space:nowrap"><button class="btn btn-ghost" data-e="${i}" style="padding:4px 12px">Edit</button> <button class="btn btn-danger" data-x="${i}" style="padding:4px 12px">Remove</button></td></tr>`).join("")}</tbody></table></div>` : `<div style="text-align:center"><div style="font-size:40px">🧾</div><h3>No expenses planned</h3><p class="muted">Add your first sample expense and it will appear here.</p></div>`;
+      $$("[data-x]").forEach(b => b.onclick = () => { expenses.splice(+b.dataset.x, 1); draw(); });
+      $$("[data-e]").forEach(b => b.onclick = () => { editing = +b.dataset.e; const e = expenses[editing]; $("#ed").value = e.d; $("#ec").value = e.c; $("#edsc").value = e.n; $("#ea").value = e.a; $("#fh").textContent = "Edit expense"; $("#eAdd").textContent = "Save changes"; $("#eCancel").hidden = false; scrollTo({ top: 0, behavior: "smooth" }); });
+    };
+    const reset = () => { editing = -1; $("#fh").textContent = "Add an expense"; $("#eAdd").textContent = "Add expense"; $("#eCancel").hidden = true; $("#edsc").value = ""; $("#ea").value = ""; };
+    $("#eCancel").onclick = reset;
+    $("#bud").oninput = e => { const v = Number(e.target.value); budget = isNaN(v) || v < 0 ? 0 : v; draw(); };
+    $("#eAdd").onclick = () => {
+      const d = $("#ed").value, c = $("#ec").value, n = $("#edsc").value.trim(), a = $("#ea").value.trim(), er = $("#eErr");
+      if (!d || !n || !a) { er.textContent = "Please fill in date, description and amount."; return; }
+      const A = Number(a); if (isNaN(A) || A <= 0) { er.textContent = "Amount must be a number above zero."; return; }
+      er.textContent = ""; const row = { d, c, n, a: A };
+      if (editing >= 0) expenses[editing] = row; else expenses.push(row);
+      reset(); draw();
+    };
+    draw();
+  }
+});
+
+pages["/mistakes"] = () => ({
+  title: "Money Mistakes",
+  html: `<div class="container page"><div class="page-head"><span class="badge">Learn</span><h1 style="margin-top:12px">Money mistakes</h1><p class="muted">Five common slip-ups, each with a real student scenario and a fix.</p></div>
+  <div style="max-width:760px">${MISTAKES.map((m, i) => `<details class="item" ${i === 0 ? "open" : ""}><summary>${m[0]}</summary><div class="body"><p><b>Scenario:</b> ${m[1]}</p><p style="margin:0"><b>Fix:</b> ${m[2]}</p></div></details>`).join("")}</div></div>`,
+  init() {}
+});
+
+pages["/gallery"] = () => ({
+  title: "Infographics",
+  html: `<div class="container page"><div class="page-head"><span class="badge">Learn</span><h1 style="margin-top:12px">Infographics gallery</h1><p class="muted">Short visual lessons. Search a keyword, filter by topic, or sort.</p></div>
+  <div class="toolbar"><input class="input" id="q" type="search" placeholder="Search lessons, try “saving” or “food”" aria-label="Search lessons"><select class="input" id="sort" style="max-width:190px" aria-label="Sort"><option value="new">Newest</option><option value="az">A–Z</option><option value="rel">Most relevant</option></select></div>
+  <div class="chips" id="chips">${["All", "Budgeting", "Saving", "Mindset", "Spending", "Tracking", "Debt", "Earning"].map((c, i) => `<button class="chip" aria-pressed="${i === 0}" data-c="${c}">${c}</button>`).join("")}</div>
+  <p class="muted" id="count" role="status"></p><div class="grid-3" id="cards"></div></div>`,
+  init() {
+    let cat = "All"; const col = { Budgeting: "primary-tint", Saving: "success-tint", Mindset: "surface-2", Spending: "danger-tint", Tracking: "primary-tint", Debt: "danger-tint", Earning: "success-tint" };
+    const draw = () => {
+      const q = $("#q").value.trim().toLowerCase(), s = $("#sort").value;
+      let r = INFO.filter(x => (cat === "All" || x[0] === cat) && (!q || (x[1] + " " + x[2] + " " + x[0]).toLowerCase().includes(q)));
+      const score = x => (x[1].toLowerCase().includes(q) ? 2 : 0) + (x[2].toLowerCase().includes(q) ? 1 : 0);
+      if (s === "az") r.sort((a, b) => a[1].localeCompare(b[1])); else if (s === "rel" && q) r.sort((a, b) => score(b) - score(a)); else r.sort((a, b) => b[4].localeCompare(a[4]));
+      $("#count").textContent = r.length ? `${r.length} lesson${r.length > 1 ? "s" : ""} found` : "";
+      $("#cards").innerHTML = r.length ? r.map(x => `<article class="card gallery-card"><div class="info-art" style="background:var(--${col[x[0]]})" role="img" aria-label="Illustration: ${esc(x[1])}">${x[3]}</div><div class="txt"><span class="badge">${x[0]}</span><h3 style="margin-top:10px">${x[1]}</h3><p class="muted" style="margin:0">${x[2]}</p></div></article>`).join("") : `<div class="card" style="grid-column:1/-1;text-align:center"><div style="font-size:40px">🔍</div><h3>No matching lessons</h3><p class="muted">Try another keyword or choose “All”.</p></div>`;
+    };
+    $("#q").oninput = draw; $("#sort").onchange = draw;
+    $$(".chip").forEach(b => b.onclick = () => { cat = b.dataset.c; $$(".chip").forEach(x => x.setAttribute("aria-pressed", x === b)); draw(); });
+    draw();
+  }
+});
+
+pages["/assistant"] = () => ({
+  title: "AI Chatbot",
+  html: `<div class="container page"><div class="page-head"><span class="badge">Ask</span><h1 style="margin-top:12px">Chat with Penny</h1><p class="muted">A simple assistant for basic budgeting questions.</p></div>
+  <div class="chat"><div class="card"><div class="chat-log" id="log" aria-live="polite"></div>
+    <form class="chat-form" id="cf"><label class="sr-only" for="ci">Your question</label><input class="input" id="ci" placeholder="Ask about saving, needs vs wants, debt…" autocomplete="off"><button class="btn btn-primary" type="submit">Ask</button></form></div>
+    <div><div class="card"><h3>Try asking</h3>${SUGGESTED.map(s => `<button class="btn btn-ghost prompt" data-p="${s}">${s}</button>`).join("")}</div>
+    <div class="alert alert-info" style="margin-top:var(--space-4)">Penny gives basic educational information only. This is not professional financial advice.</div></div></div></div>`,
+  init() {
+    const log = $("#log"); const add = (t, w) => { const d = document.createElement("div"); d.className = "msg " + w; d.textContent = t; log.appendChild(d); log.scrollTop = log.scrollHeight; };
+    add("Hi, I am Penny. Ask me anything about budgeting basics and I will share a short, practical answer.", "bot");
+    const ask = q => { add(q, "me"); const l = " " + q.toLowerCase() + " "; const hit = BOT.find(b => b[0].some(k => l.includes(k))); setTimeout(() => add(hit ? hit[1] : "I can only help with budgeting basics like needs vs wants, saving, debt and overspending. Try one of the suggested questions.", "bot"), 350); };
+    $("#cf").onsubmit = e => { e.preventDefault(); const v = $("#ci").value.trim(); if (!v) return; $("#ci").value = ""; ask(v); };
+    $$(".prompt").forEach(b => b.onclick = () => ask(b.dataset.p));
+  }
+});
+
+pages["/about"] = () => ({
+  title: "About Us",
+  html: `<div class="container page"><div class="page-head"><span class="badge">About</span><h1 style="margin-top:12px">About BudgetBasics</h1></div>
+  <div class="grid-2"><div class="card"><h3>Our purpose</h3><p class="muted">Many students handle an allowance, scholarship or part-time pay with no simple way to plan it. BudgetBasics explains the ideas in plain language and lets you practise with safe demo tools.</p><h3>What it is not</h3><p class="muted" style="margin:0">It is an educational website. It is not a bank, does not handle real money and does not keep personal financial records.</p></div>
+  <div class="card"><h3>The team</h3><table class="table"><tbody><tr><td>John</td><td>Team lead · Home &amp; shell</td></tr><tr><td>Tochi</td><td>Learn pages</td></tr><tr><td>Favor</td><td>Plan tools</td></tr><tr><td>Daniel</td><td>Chatbot &amp; connect pages</td></tr></tbody></table></div></div></div>`,
+  init() {}
+});
+
+function formPage(kind) {
+  const fb = kind === "feedback";
+  return () => ({
+    title: fb ? "Feedback" : "Contact Us",
+    html: `<div class="container page"><div class="page-head"><span class="badge">${fb ? "Feedback" : "Contact"}</span><h1 style="margin-top:12px">${fb ? "Share your feedback" : "Contact us"}</h1><p class="muted">${fb ? "Tell us what worked and what did not." : "Questions about the project? Reach out."}</p></div>
+    <div class="grid-2"><form class="card" id="f" novalidate>
+      <div class="field"><label for="fn">Name</label><input class="input" id="fn"><span class="field-error" data-e="fn" role="alert"></span></div>
+      <div class="field"><label for="fe">Email</label><input class="input" id="fe" type="email"><span class="field-error" data-e="fe" role="alert"></span></div>
+      ${fb ? `<div class="field"><span style="font-weight:600;font-size:var(--text-sm)">Rating</span><div class="stars" id="stars">${[1, 2, 3, 4, 5].map(n => `<button type="button" data-s="${n}" aria-label="${n} star${n > 1 ? "s" : ""}">★</button>`).join("")}</div><span class="field-error" data-e="rate" role="alert"></span></div>` : ""}
+      <div class="field"><label for="fm">${fb ? "Comments" : "Message"}</label><textarea class="input" id="fm" rows="4"></textarea><span class="field-error" data-e="fm" role="alert"></span></div>
+      <button class="btn btn-primary" type="submit">${fb ? "Send feedback" : "Send message"}</button><div id="ok" role="status"></div></form>
+    <div class="card"><h3>Details</h3><p class="muted">Email: hello@budgetbasics.example<br>Phone: +234 000 000 0000<br>Social: @budgetbasics (placeholders)</p><div class="alert alert-info">Forms are checked in your browser only. Nothing is sent or stored.</div></div></div></div>`,
+    init() {
+      let rate = 0; $$("#stars button").forEach(b => b.onclick = () => { rate = +b.dataset.s; $$("#stars button").forEach(x => x.classList.toggle("on", +x.dataset.s <= rate)); });
+      $("#f").onsubmit = e => {
+        e.preventDefault(); const m = {}; const n = $("#fn").value.trim(), em = $("#fe").value.trim(), msg = $("#fm").value.trim();
+        if (n.length < 2) m.fn = "Enter your name (at least 2 characters)."; if (!/^\S+@\S+\.\S+$/.test(em)) m.fe = "Enter a valid email address."; if (fb && !rate) m.rate = "Choose a rating."; if (msg.length < 10) m.fm = "Write at least 10 characters.";
+        $$("[data-e]").forEach(s => s.textContent = m[s.dataset.e] || "");
+        if (Object.keys(m).length) { $("#ok").innerHTML = ""; return; }
+        $("#ok").innerHTML = `<div class="alert alert-success" style="margin-top:12px">Thank you, ${esc(n)}! Your ${fb ? "feedback" : "message"} passed validation. (Demo: nothing was sent or stored.)</div>`; $("#f").reset(); rate = 0; $$("#stars button").forEach(x => x.classList.remove("on"));
+      };
+    }
+  });
+}
+pages["/feedback"] = formPage("feedback");
+pages["/contact"] = formPage("contact");
+
+pages["/sitemap"] = () => ({
+  title: "Sitemap",
+  html: `<div class="container page"><div class="page-head"><span class="badge">Sitemap</span><h1 style="margin-top:12px">Sitemap</h1></div>
+  <div class="grid-3">${[["Learn", [["Budgeting Basics", "/basics"], ["Needs vs Wants", "/needs-wants"], ["Money Mistakes", "/mistakes"], ["Infographics", "/gallery"]]], ["Plan", [["50-30-20 Rule", "/calculator"], ["Savings Goals", "/goals"], ["Expense Planner", "/planner"]]], ["Connect", [["AI Chatbot", "/assistant"], ["About Us", "/about"], ["Feedback", "/feedback"], ["Contact Us", "/contact"]]]].map(g => `<div class="card"><h3>${g[0]}</h3><ul class="site-map">${g[1].map(l => `<li><a href="#${l[1]}">${l[0]}</a></li>`).join("")}</ul></div>`).join("")}</div></div>`,
+  init() {}
+});
+
+/* ===== router ===== */
+function route() {
+  const path = (location.hash.slice(1) || "/");
+  const page = (pages[path] || pages["/"])();
+  main.innerHTML = page.html; document.title = page.title + " · BudgetBasics";
+  $$(".nav-links a[data-r]").forEach(a => a.classList.toggle("active", a.dataset.r === path));
+  $("#navLinks").classList.remove("open"); $("#burger").setAttribute("aria-expanded", "false");
+  page.init(); scrollTo({ top: 0 }); main.focus({ preventScroll: true });
+}
+addEventListener("hashchange", route); route();
+</script>
+</body>
+</html>

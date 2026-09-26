@@ -1,1 +1,62 @@
-﻿[]
+﻿[
+  {
+    "id": 1,
+    "label": "Hostel rent for the semester",
+    "answer": "Need",
+    "explanation": "Somewhere to live while you study is essential, not optional."
+  },
+  {
+    "id": 2,
+    "label": "New sneakers you saw on Instagram",
+    "answer": "Want",
+    "explanation": "Seeing it online doesn't make it essential — your current shoes still work fine."
+  },
+  {
+    "id": 3,
+    "label": "Textbooks for this semester",
+    "answer": "Need",
+    "explanation": "You can't pass your courses without the required materials."
+  },
+  {
+    "id": 4,
+    "label": "Weekend trip with friends",
+    "answer": "Want",
+    "explanation": "Fun and social, but nothing breaks if you skip it this time."
+  },
+  {
+    "id": 5,
+    "label": "Monthly data subscription",
+    "answer": "Need",
+    "explanation": "You need data for classes, research, and staying reachable — it's a basic utility now."
+  },
+  {
+    "id": 6,
+    "label": "Designer bag",
+    "answer": "Want",
+    "explanation": "A regular bag does the same job for a fraction of the price."
+  },
+  {
+    "id": 7,
+    "label": "Food for the week",
+    "answer": "Need",
+    "explanation": "You have to eat — this one's non-negotiable."
+  },
+  {
+    "id": 8,
+    "label": "Concert ticket",
+    "answer": "Want",
+    "explanation": "Entertainment is enjoyable, but it's not something you can't live without."
+  },
+  {
+    "id": 9,
+    "label": "Transport fare to school",
+    "answer": "Need",
+    "explanation": "Getting to class is essential for your studies."
+  },
+  {
+    "id": 10,
+    "label": "Latest phone upgrade",
+    "answer": "Want",
+    "explanation": "If your current phone still works, a newer model is a want, not a need."
+  }
+]

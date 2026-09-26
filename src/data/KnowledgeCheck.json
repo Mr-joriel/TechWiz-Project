@@ -1,5 +1,7 @@
 {
   "question": "Which of these is a fixed expense?",
   "options": ["Weekend takeout", "Monthly hostel fee", "Cinema ticket", "Birthday gift"],
-  "answer": "Monthly hostel fee"
+  "answer": "Monthly hostel fee",
+  "correctFeedback": "Correct! Hostel fees stay the same every month.",
+  "incorrectFeedback": "Not quite. The hostel fee is fixed: it does not change month to month."
 }

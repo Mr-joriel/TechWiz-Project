@@ -50,6 +50,8 @@ function BudgetingBasics() {
             question={checkData.question}
             options={checkData.options}
             answer={checkData.answer}
+            correctFeedback={checkData.correctFeedback}
+            incorrectFeedback={checkData.incorrectFeedback}
           />
         </div>
       </div>

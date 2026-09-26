@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function KnowledgeCheck({ question, options, answer }) {
+function KnowledgeCheck({ question, options, answer, correctFeedback, incorrectFeedback }) {
   const [selected, setSelected] = useState(null)
   const isCorrect = selected === answer
 
@@ -44,13 +44,11 @@ function KnowledgeCheck({ question, options, answer }) {
             color: isCorrect ? 'var(--success)' : 'var(--danger)',
           }}
         >
-          {isCorrect
-            ? 'Correct! Hostel fees stay the same every month.'
-            : 'Not quite. The hostel fee is fixed: it does not change month to month.'}
+          {isCorrect ? correctFeedback : incorrectFeedback}
         </p>
       )}
     </article>
   )
 }
 
-export default KnowledgeCheck
+export default KnowledgeCheck;

@@ -1,0 +1,239 @@
+.calculator-card {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.calculator-card label {
+  font-weight: 600;
+}
+
+
+.results-card {
+  margin-top: 2rem;
+}
+
+.budget-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  gap: 5rem;
+  align-items: center;
+}
+
+
+
+.budget-progress {
+  padding: 2rem;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.budget-progress h2 {
+  margin-top: 0;
+  margin-bottom: 1.75rem;
+}
+
+.budget-item {
+  margin-bottom: 1.75rem;
+}
+
+.budget-item:last-child {
+  margin-bottom: 0;
+}
+
+.budget-item__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.budget-item__heading h3 {
+  margin: 0;
+}
+
+.budget-item__heading strong {
+  white-space: nowrap;
+}
+
+.budget-item p {
+  margin-top: 0.6rem;
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.needs-progress {
+  background: var(--wants);
+}
+
+.wants-progress {
+  background: var(--savings);
+}
+
+.savings-progress {
+  background: #7c3aed;
+}
+
+.budget-chart {
+  text-align: center;
+}
+
+.budget-chart h2 {
+  margin-top: 0;
+}
+
+.donut-chart {
+  width: 220px;
+  height: 220px;
+
+  margin: 1.5rem auto;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    var(--wants) 0% 50%,
+    var(--savings) 50% 80%,
+    #7c3aed 80% 100%
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut-center {
+  width: 130px;
+  height: 130px;
+
+  border-radius: 50%;
+
+  background: var(--surface);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ink);
+}
+
+.donut-center strong {
+  font-size: 1.5rem;
+}
+
+.donut-center span {
+  margin-top: 0.25rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.chart-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.chart-labels p {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  margin: 0;
+}
+
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  display: inline-block;
+}
+
+.needs-dot {
+  background: var(--wants);
+}
+
+.wants-dot {
+  background: var(--savings);
+}
+
+.savings-dot {
+  background: #7c3aed;
+}
+
+
+
+.learning-note {
+  margin-top: 2.5rem;
+  padding: 1rem 1.25rem;
+
+  border-radius: 12px;
+
+  background: var(--surface-soft);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  color: var(--ink-soft);
+}
+
+.learning-note strong {
+  color: var(--ink);
+}
+
+
+@media (max-width: 768px) {
+  .budget-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .budget-progress {
+    padding: 1.5rem;
+  }
+
+  .budget-chart {
+    padding-bottom: 1rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .budget-item__heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .donut-chart {
+    width: 190px;
+    height: 190px;
+  }
+
+  .donut-center {
+    width: 115px;
+    height: 115px;
+  }
+
+  .learning-note {
+    font-size: 0.9rem;
+  }
+}

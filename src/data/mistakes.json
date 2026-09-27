@@ -1,1 +1,32 @@
-﻿[]
+﻿[
+  {
+    "id": 1,
+    "title": "Impulse buying",
+    "scenario": "A flash sale pops up and you buy headphones you had not planned for.",
+    "fix": "Wait 24 hours before any non-essential purchase over a set amount."
+  },
+  {
+    "id": 2,
+    "title": "Ignoring small expenses",
+    "scenario": "Daily snacks and small transport top-ups feel too small to track.",
+    "fix": "Log every expense for one week — small spends add up fast when totaled."
+  },
+  {
+    "id": 3,
+    "title": "Paying late",
+    "scenario": "Hostel fees or a phone bill slip past the due date and attract a penalty.",
+    "fix": "Set a reminder three days before each due date, not on the day itself."
+  },
+  {
+    "id": 4,
+    "title": "Unused subscriptions",
+    "scenario": "A streaming trial auto-renews months after you stopped watching.",
+    "fix": "Review every active subscription once a month and cancel what you don't use."
+  },
+  {
+    "id": 5,
+    "title": "Spending without a plan",
+    "scenario": "Allowance arrives and disappears within days with nothing to show for it.",
+    "fix": "Assign every naira a job before you spend — even a rough plan beats none."
+  }
+]

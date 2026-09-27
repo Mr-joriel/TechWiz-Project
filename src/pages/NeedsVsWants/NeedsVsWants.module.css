@@ -1,5 +1,190 @@
 ﻿.page { min-height: 60vh; padding: var(--space-8) 1.5rem; }
 .content { width: min(100%, 72rem); margin: 0 auto; }
-.eyebrow { margin: 0 0 0.7rem; color: var(--primary); font-size: 0.73rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
+
+.eyebrow {
+  display: inline-block;
+  margin: var(--space-1) 0 var(--space-3);
+  padding: 0.39rem 0.94rem;
+  border-radius: var(--radius-pill);
+  color: var(--primary);
+  background: var(--surface-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
 .card { padding: var(--space-5); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--ink); background: var(--surface); box-shadow: var(--shadow-sm); }
 @media (max-width: 600px) { .page { padding: var(--space-6) 1rem; } }
+
+.intro {
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-5);
+}
+
+.gameGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .gameGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-3);
+}
+
+.itemLabel {
+  margin: 0 0 var(--space-5);
+}
+
+.choiceRow {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.choiceBtn {
+  flex: 1;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.choiceBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.choiceBtn:disabled {
+  cursor: not-allowed;
+}
+
+.needBtn:hover:not(:disabled) {
+  border-color: var(--needs);
+}
+
+.wantBtn:hover:not(:disabled) {
+  border-color: var(--wants);
+}
+
+.correct {
+  border-color: var(--success);
+  background: color-mix(in srgb, var(--success) 12%, var(--surface));
+  color: var(--success);
+}
+
+.incorrect {
+  border-color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, var(--surface));
+  color: var(--danger);
+}
+
+.feedbackCorrect {
+  color: var(--success);
+  font-weight: 600;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) 1rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--success) 10%, var(--surface));
+}
+
+.feedbackIncorrect {
+  color: var(--danger);
+  font-weight: 500;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) 1rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--danger) 8%, var(--surface));
+}
+
+.nextBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: var(--space-4);
+  padding: 0.65rem 1.4rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  color: var(--on-primary);
+  background: var(--primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--primary) 25%, transparent);
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.nextBtn:hover {
+  background: var(--primary-strong);
+  transform: translateY(-2px);
+}
+
+.results {
+  text-align: center;
+  padding: var(--space-3) 0;
+}
+
+.resultActions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.guideCard {
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.guideRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 var(--space-4);
+}
+
+.guideQuestion {
+  background: var(--surface-soft);
+  color: var(--ink);
+  font-weight: 700;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-md);
+}
+
+.yes {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.no {
+  color: var(--wants);
+  font-weight: 600;
+}
+
+.guideTip {
+  background: var(--surface-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) 1rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}

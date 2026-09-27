@@ -1,1 +1,38 @@
-﻿[]
+﻿[
+  {
+    "id": "income",
+    "emoji": "💵",
+    "title": "Income",
+    "description": "Allowance, part-time pay, gifts. Anything coming in."
+  },
+  {
+    "id": "fixed",
+    "emoji": "📌",
+    "title": "Fixed expenses",
+    "description": "Same every month: rent, data plan, transport pass."
+  },
+  {
+    "id": "variable",
+    "emoji": "🔄",
+    "title": "Variable expenses",
+    "description": "Changes monthly: food, outings, printing."
+  },
+  {
+    "id": "requirements",
+    "emoji": "✅",
+    "title": "Requirements",
+    "description": "What keeps you safe and studying."
+  },
+  {
+    "id": "wants",
+    "emoji": "🛍️",
+    "title": "Wants",
+    "description": "Nice to have, not essential."
+  },
+  {
+    "id": "savings",
+    "emoji": "🐷",
+    "title": "Savings",
+    "description": "Money set aside on purpose."
+  }
+]

@@ -1,0 +1,9 @@
+[
+  { "id": "1", "item": "Allowance", "type": "Income", "amount": "₦80,000" },
+  { "id": "2", "item": "Hostel contribution", "type": "Fixed", "amount": "₦25,000" },
+  { "id": "3", "item": "Transport", "type": "Fixed", "amount": "₦8,000" },
+  { "id": "4", "item": "Food", "type": "Variable", "amount": "₦22,000" },
+  { "id": "5", "item": "Data and airtime", "type": "Variable", "amount": "₦5,000" },
+  { "id": "6", "item": "Outings", "type": "Wants", "amount": "₦8,000" },
+  { "id": "7", "item": "Savings", "type": "Savings", "amount": "₦12,000" }
+]

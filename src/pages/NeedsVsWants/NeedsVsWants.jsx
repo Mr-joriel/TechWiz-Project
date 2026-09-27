@@ -6,7 +6,7 @@ import items from '../../data/needsWants.json'
 function getResultMessage(score, total) {
   if (score >= total * 0.8) return 'Great instincts. You know the difference.'
   if (score >= total * 0.4) return 'Good start, play again to sharpen it.'
-  return 'Worth another round . Needs and wants get confusing fast.'
+  return 'Worth another round — needs and wants get confusing fast.'
 }
 
 function NeedsVsWants() {

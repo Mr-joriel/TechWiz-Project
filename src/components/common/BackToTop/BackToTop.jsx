@@ -10,6 +10,6 @@ function BackToTop() {
     return () => window.removeEventListener('scroll', updateVisibility)
   }, [])
   if (!visible) return null
-  return <button className={styles.button} type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top"><span aria-hidden="true">↑</span><span>Back to top</span></button>
+  return <button className={styles.button} type="button" onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })} aria-label="Back to top"><span aria-hidden="true">↑</span><span>Back to top</span></button>
 }
 export default BackToTop

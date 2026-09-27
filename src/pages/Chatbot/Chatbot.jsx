@@ -1,247 +1,42 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
+import answers from '../../data/chatbot.json'
 import styles from './Chatbot.module.css'
 
-const suggestions = [
-  'How can I save more money?',
-  'How do I create a budget?',
-  'How can I stop overspending?',
-]
+const suggestions = ['What is a need?', 'How much should I save?', 'How do I avoid overspending?']
+const fallback = 'I can help with budgeting, saving, spending, needs, and money goals. Try asking about one of those topics.'
+
+function getResponse(question) {
+  const normalized = question.toLocaleLowerCase()
+  const match = answers.find((item) => item.keywords.some((keyword) => normalized.includes(keyword)))
+  return match?.answer || fallback
+}
 
 function Chatbot() {
-  const [messages, setMessages] = useState([
-    {
-      type: 'bot',
-      text: "Hi! 👋 I'm the BudgetBasics AI Assistant. I can help you with budgeting, saving, spending, and managing your money. What would you like to know?",
-    },
-  ])
-
+  const [messages, setMessages] = useState([{ type: 'bot', text: 'Hi! I can answer common questions about budgeting, saving, and spending. What would you like to learn?' }])
   const [input, setInput] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
 
-  const getResponse = (question) => {
-    const q = question.toLowerCase()
-
-    if (
-      q.includes('save') ||
-      q.includes('saving') ||
-      q.includes('savings')
-    ) {
-      return "A good way to save is to set a clear savings goal and include it in your budget. Decide how much you can comfortably save each time you receive income and track your progress."
-    }
-
-    if (
-      q.includes('budget') ||
-      q.includes('income') ||
-      q.includes('salary') ||
-      q.includes('earn')
-    ) {
-      return "Start by writing down your total income. Then list your essential expenses, other spending, and savings. Give each part of your income a purpose and review your budget regularly."
-    }
-
-    if (
-      q.includes('spend') ||
-      q.includes('spending') ||
-      q.includes('overspend') ||
-      q.includes('expense')
-    ) {
-      return "Try tracking every expense for a month. Once you know where your money goes, identify unnecessary spending and set realistic limits for different categories."
-    }
-
-    if (
-      q.includes('debt') ||
-      q.includes('loan') ||
-      q.includes('owe')
-    ) {
-      return "Start by listing what you owe and the required payments. Keep up with required payments and consider directing extra money toward your debts while maintaining some savings for unexpected expenses."
-    }
-
-    if (
-      q.includes('emergency') ||
-      q.includes('unexpected')
-    ) {
-      return "An emergency fund is money kept aside for unexpected expenses. Start with an amount you can comfortably save and build it gradually over time."
-    }
-
-    if (
-      q.includes('hello') ||
-      q.includes('hi') ||
-      q.includes('hey')
-    ) {
-      return "Hey! 👋 I'm ready to help with your budgeting, saving, spending, and money-management questions."
-    }
-
-    return "I'm the BudgetBasics AI Assistant 💰. I can help with budgeting, saving, spending, income, expenses, and managing money. Please ask me something related to your finances."
-  }
-
-  const sendMessage = (message = input) => {
-    const text = message.trim()
-
-    if (!text || isTyping) return
-
-    setMessages((previous) => [
-      ...previous,
-      {
-        type: 'user',
-        text,
-      },
-    ])
-
+  function sendMessage(question = input) {
+    const text = question.trim()
+    if (!text) return
+    setMessages((current) => [...current, { type: 'user', text }, { type: 'bot', text: getResponse(text) }])
     setInput('')
-    setIsTyping(true)
-
-    // Simulate AI thinking/loading time
-    setTimeout(() => {
-      const response = getResponse(text)
-
-      setMessages((previous) => [
-        ...previous,
-        {
-          type: 'bot',
-          text: response,
-        },
-      ])
-
-      setIsTyping(false)
-    }, 1800)
   }
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault()
     sendMessage()
   }
 
-  return (
-    <section
-      className={styles.page}
-      aria-labelledby="chatbot-heading"
-    >
-      <div className={styles.content}>
-
-        <div className={styles.heading}>
-          <div className={styles.icon}>✦</div>
-
-          <div>
-            <p className={styles.eyebrow}>
-              BudgetBasics · AI Assistant
-            </p>
-
-            <h1 id="chatbot-heading">
-              Budget Assistant
-            </h1>
-
-            <p className={styles.subtitle}>
-              Get simple guidance on budgeting, saving and managing your money.
-            </p>
-          </div>
-        </div>
-
-        <div className={styles.chatCard}>
-
-          <div className={styles.chatHeader}>
-            <div className={styles.statusDot}></div>
-
-            <div>
-              <strong>BudgetBasics Assistant</strong>
-              <span>Online · Ready to help</span>
-            </div>
-          </div>
-
-          <div className={styles.messages}>
-
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={
-                  message.type === 'user'
-                    ? styles.userRow
-                    : styles.botRow
-                }
-              >
-
-                {message.type === 'bot' && (
-                  <div className={styles.botAvatar}>
-                    B
-                  </div>
-                )}
-
-                <div
-                  className={
-                    message.type === 'user'
-                      ? styles.userMessage
-                      : styles.botMessage
-                  }
-                >
-                  {message.text}
-                </div>
-
-              </div>
-            ))}
-
-            {/* AI typing indicator */}
-            {isTyping && (
-              <div className={styles.botRow}>
-                <div className={styles.botAvatar}>
-                  B
-                </div>
-
-                <div className={styles.typingBubble}>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-            )}
-
-          </div>
-
-          <div className={styles.suggestions}>
-            <p>Try asking:</p>
-
-            <div className={styles.suggestionButtons}>
-              {suggestions.map((suggestion) => (
-                <button
-                  key={suggestion}
-                  type="button"
-                  onClick={() => sendMessage(suggestion)}
-                  disabled={isTyping}
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <form
-            className={styles.inputArea}
-            onSubmit={handleSubmit}
-          >
-            <input
-              type="text"
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              placeholder="Ask about budgeting or saving..."
-              aria-label="Ask the BudgetBasics Assistant"
-              disabled={isTyping}
-            />
-
-            <button
-              type="submit"
-              disabled={isTyping}
-            >
-              {isTyping ? 'Thinking...' : 'Send'}
-            </button>
-          </form>
-
-        </div>
-
-        <p className={styles.disclaimer}>
-          BudgetBasics provides general financial education and budgeting
-          guidance. It is not a substitute for professional financial advice.
-        </p>
-
-      </div>
-    </section>
-  )
+  return <section className={styles.page} aria-labelledby="chatbot-heading"><div className={styles.content}>
+    <header className={styles.heading}><span className={styles.icon} aria-hidden="true">✦</span><div><p className={styles.eyebrow}>BudgetBasics · Learning assistant</p><h1 id="chatbot-heading">Ask a money question</h1><p className={styles.subtitle}>Answers come from the project’s local learning guide; nothing is sent to an AI service.</p></div></header>
+    <div className={styles.chatCard}>
+      <div className={styles.chatHeader}><span className={styles.statusDot} aria-hidden="true" /><div><strong>BudgetBasics Assistant</strong><span>Local guide · Ready to help</span></div></div>
+      <div className={styles.messages} aria-live="polite" aria-label="Conversation">{messages.map((message, index) => <div key={`${message.type}-${index}`} className={message.type === 'user' ? styles.userRow : styles.botRow}>{message.type === 'bot' && <span className={styles.botAvatar} aria-hidden="true">B</span>}<p className={message.type === 'user' ? styles.userMessage : styles.botMessage}>{message.text}</p></div>)}</div>
+      <div className={styles.suggestions}><p>Try a question</p><div className={styles.suggestionButtons}>{suggestions.map((suggestion) => <button key={suggestion} type="button" onClick={() => sendMessage(suggestion)}>{suggestion}</button>)}</div></div>
+      <form className={styles.inputArea} onSubmit={handleSubmit}><label className="sr-only" htmlFor="chat-question">Your question</label><input id="chat-question" type="text" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about budgeting or saving…" /><button className="btn btn--primary" type="submit" disabled={!input.trim()}>Ask</button></form>
+    </div>
+    <p className={styles.disclaimer}>This chatbot provides general financial education only and is not professional financial advice.</p>
+  </div></section>
 }
 
 export default Chatbot

@@ -3,7 +3,7 @@ import BudgetCard from '../BudgetCard/BudgetCard.jsx'
 import KnowledgeCheck from '../KnowledgeCheck/KnowledgeCheck.jsx'
 import budgetBasics from '../../data/budgetBasics.json'
 import sampleMonth from '../../data/sampleMonth.json'
-import checkData from '../../data/knowledgeCheck.json'
+import checkData from '../../data/KnowledgeCheck.json'
 
 function BudgetingBasics() {
   return (
@@ -20,6 +20,7 @@ function BudgetingBasics() {
               emoji={item.emoji}
               title={item.title}
               description={item.description}
+              details={item.details}
             />
           ))}
         </div>

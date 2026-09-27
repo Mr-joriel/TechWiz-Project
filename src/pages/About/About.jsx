@@ -3,12 +3,12 @@ import styles from './About.module.css'
 
 function About() {
   return (
-    <main className={styles.page}>
+    <section className={styles.page} aria-labelledby="about-heading">
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <p className={styles.eyebrow}>ABOUT BUDGETBASICS</p>
 
-          <h1>
+          <h1 id="about-heading">
             Take control of your money.
             <span> One simple choice at a time.</span>
           </h1>
@@ -20,7 +20,7 @@ function About() {
           </p>
 
           <div className={styles.actions}>
-            <Link className="btn btn--primary" to="/dashboard">
+            <Link className="btn btn--primary" to="/calculator">
               Start budgeting
             </Link>
 
@@ -103,15 +103,27 @@ function About() {
         </p>
       </section>
 
+      <section className={styles.team} aria-labelledby="team-heading">
+        <p className={styles.eyebrow}>THE PROJECT TEAM</p>
+        <h2 id="team-heading">Built together by the TechWiz 7 team.</h2>
+        <p>BudgetBasics is a student learning project created by John, Tochi, Favor, and Daniel as part of Aptech’s TechWiz 7 team.</p>
+        <div className={styles.teamGrid}>
+          <article><strong>John</strong><span>Project lead · Home, navigation, routing, and shared site experience</span></article>
+          <article><strong>Tochi</strong><span>Budgeting Basics, Needs vs Wants, and Money Mistakes</span></article>
+          <article><strong>Favor</strong><span>Budget calculator, savings goals, and expense planner</span></article>
+          <article><strong>Daniel</strong><span>Chatbot, learning gallery, About, Feedback, and Contact</span></article>
+        </div>
+      </section>
+
       <section className={styles.cta}>
         <p className={styles.eyebrow}>READY TO GET STARTED?</p>
         <h2>Your money. Your goals. Your plan.</h2>
 
-        <Link className="btn btn--primary" to="/dashboard">
+        <Link className="btn btn--primary" to="/basics">
           Start your journey →
         </Link>
       </section>
-    </main>
+    </section>
   )
 }
 

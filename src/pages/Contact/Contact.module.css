@@ -2,7 +2,7 @@
   min-height: 70vh;
   padding: var(--space-8) 1.5rem;
   color: var(--ink);
-  background: var(--background);
+  background: var(--bg);
 }
 
 .content {
@@ -46,7 +46,7 @@
 .intro {
   max-width: 600px;
   margin: 1.5rem 0 0;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-size: 1.08rem;
   line-height: 1.8;
 }
@@ -90,7 +90,7 @@
 
 .heroCard p:last-child {
   margin: 0;
-  color: var(--muted);
+  color: var(--ink-soft);
   line-height: 1.7;
 }
 
@@ -117,7 +117,7 @@
 
 .infoText {
   margin: 1rem 0 2rem;
-  color: var(--muted);
+  color: var(--ink-soft);
   line-height: 1.75;
 }
 
@@ -151,7 +151,7 @@
 
 .infoItem p {
   margin: 0 0 0.2rem;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -159,6 +159,13 @@
 
 .infoItem strong {
   font-size: 0.9rem;
+}
+
+.infoItem a {
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 /* FORM */
@@ -196,7 +203,7 @@
   padding: 0.35rem 0.7rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-size: 0.7rem;
 }
 
@@ -227,7 +234,7 @@
   outline: none;
   padding: 0.9rem 1rem;
   color: var(--ink);
-  background: var(--background);
+  background: var(--bg);
   font: inherit;
   transition:
     border-color 0.2s ease,
@@ -247,7 +254,7 @@
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: var(--muted);
+  color: var(--ink-soft);
 }
 
 /* SUBMIT */
@@ -263,7 +270,7 @@
 
 .submitArea p {
   margin: 0;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-size: 0.78rem;
   line-height: 1.5;
 }
@@ -326,7 +333,7 @@
 .success > p:not(.eyebrow) {
   max-width: 500px;
   margin: 1rem auto 2rem;
-  color: var(--muted);
+  color: var(--ink-soft);
   line-height: 1.7;
 }
 
@@ -378,3 +385,7 @@
     padding: 2rem 1.2rem;
   }
 }
+
+
+.socialLinks { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.socialLinks a { color: var(--primary); font-size: 0.85rem; font-weight: 700; }

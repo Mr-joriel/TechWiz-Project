@@ -1,6 +1,5 @@
-﻿import { useState } from "react";
-import "./ExpensePlanner.css";
-
+import styles from './ExpensePlanner.module.css'
+import { useState } from "react";
 function ExpensePlanner() {
   const [budget, setBudget] = useState("");
   const [date, setDate] = useState("");
@@ -11,6 +10,7 @@ function ExpensePlanner() {
   const [expenses, setExpenses] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState("");
+  const [budgetError, setBudgetError] = useState("");
 
   const categories = [
     "Food",
@@ -36,6 +36,11 @@ function ExpensePlanner() {
 
   function handleAddExpense() {
     const expenseAmount = Number(amount);
+
+    if (budget.trim() === "" || !Number.isFinite(Number(budget)) || Number(budget) <= 0) {
+      setBudgetError("Enter a monthly budget greater than zero before adding expenses.");
+      return;
+    }
 
     if (
       date === "" ||
@@ -111,6 +116,14 @@ function ExpensePlanner() {
     setError("");
   }
 
+  function handleBudgetBlur() {
+    if (budget.trim() === "" || !Number.isFinite(Number(budget)) || Number(budget) <= 0) {
+      setBudgetError("Enter a monthly budget greater than zero.");
+      return;
+    }
+    setBudgetError("");
+  }
+
   return (
     <section className="page" aria-labelledby="planner-heading">
       <div className="page__content">
@@ -119,14 +132,14 @@ function ExpensePlanner() {
 
         <h1 id="planner-heading">Expense planner</h1>
 
-        <p className="planner-intro">
+        <p className={styles.plannerIntro}>
           Add sample expenses, edit or remove them, and watch
           the balance change. Entries vanish when you close the tab.
         </p>
 
-        <div className="planner-layout">
+        <div className={styles.plannerLayout}>
 
-          <article className="card planner-form-card">
+          <article className={`card ${styles.plannerFormCard}`}>
 
             <label htmlFor="budget">
               Monthly spending budget (₦)
@@ -137,15 +150,18 @@ function ExpensePlanner() {
               className="input"
               type="number"
               value={budget}
-              onChange={(event) => setBudget(event.target.value)}
+              onChange={(event) => { setBudget(event.target.value); setBudgetError(""); }}
+              onBlur={handleBudgetBlur}
+              min="0"
               placeholder="80000"
             />
+            {budgetError && <p className="alert alert--error" role="alert">{budgetError}</p>}
 
-            <div className="planner-divider"></div>
+            <div className={styles.plannerDivider}></div>
 
             <h2>Add an expense</h2>
 
-            <div className="expense-input-row">
+            <div className={styles.expenseInputRow}>
 
               <div>
                 <label htmlFor="date">Date</label>
@@ -216,7 +232,7 @@ function ExpensePlanner() {
               </p>
             )}
 
-            <div className="planner-buttons">
+            <div className={styles.plannerButtons}>
 
               <button
                 className="btn btn--primary"
@@ -241,12 +257,12 @@ function ExpensePlanner() {
           </article>
 
 
-          <div className="planner-results">
+          <div className={styles.plannerResults}>
 
 
-            <article className="card budget-summary">
+            <article className={`card ${styles.budgetSummary}`}>
 
-              <div className="summary-item">
+              <div className={styles.summaryItem}>
                 <span>Planned</span>
 
                 <strong>
@@ -254,7 +270,7 @@ function ExpensePlanner() {
                 </strong>
               </div>
 
-              <div className="summary-item">
+              <div className={styles.summaryItem}>
                 <span>Budget</span>
 
                 <strong>
@@ -262,23 +278,23 @@ function ExpensePlanner() {
                 </strong>
               </div>
 
-              <div className="summary-item">
+              <div className={styles.summaryItem}>
                 <span>Remaining</span>
 
                 <strong className={
                   remaining < 0
-                    ? "remaining-negative"
-                    : "remaining-positive"
+                    ? styles.remainingNegative
+                    : styles.remainingPositive
                 }>
                   ₦{remaining.toLocaleString()}
                 </strong>
               </div>
 
-              <div className="planner-progress">
+              <div className={styles.plannerProgress}>
 
-                <div className="planner-progress__bar">
+                <div className={styles.plannerProgressBar}>
                   <div
-                    className="planner-progress__fill"
+                    className={styles.plannerProgressFill}
                     style={{
                       width: `${plannedPercentage}%`,
                     }}
@@ -298,9 +314,9 @@ function ExpensePlanner() {
         
 
             {expenses.length === 0 ? (
-              <article className="card empty-expenses">
+              <article className={`card ${styles.emptyExpenses}`}>
 
-                <div className="empty-expenses__icon">
+                <div className={styles.emptyExpensesIcon}>
                   🧾
                 </div>
 
@@ -313,7 +329,7 @@ function ExpensePlanner() {
 
               </article>
             ) : (
-              <article className="card expenses-card">
+              <article className={`card ${styles.expensesCard}`}>
 
                 <h2>Your expenses</h2>
 
@@ -346,7 +362,7 @@ function ExpensePlanner() {
                           </td>
 
                           <td>
-                            <div className="expense-actions">
+                            <div className={styles.expenseActions}>
 
                               <button
                                 className="btn btn--small btn--secondary"

@@ -191,7 +191,7 @@
 .topicActive {
   border-color: var(--primary);
   background: var(--primary);
-  color: white;
+  color: var(--on-primary);
 }
 
 /* =========================
@@ -260,7 +260,7 @@ textarea::placeholder {
   border: none;
   border-radius: 999px;
   background: var(--primary);
-  color: white;
+  color: var(--on-primary);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
@@ -298,7 +298,7 @@ textarea::placeholder {
   place-items: center;
   border-radius: 50%;
   background: var(--primary);
-  color: white;
+  color: var(--on-primary);
   font-size: 1.5rem;
   font-weight: 800;
 }
@@ -382,4 +382,8 @@ textarea::placeholder {
     margin: 4rem auto;
     padding: 2rem 1.3rem;
   }
-}
+}.identityGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-5); }
+.identityField { display: grid; gap: var(--space-2); color: var(--ink); font-size: 0.84rem; font-weight: 700; }
+.identityField input { width: 100%; min-height: 2.9rem; padding: var(--space-3) var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--ink); background: var(--surface); }
+.identityField input:focus-visible { border-color: var(--primary); }
+@media (max-width: 600px) { .identityGrid { grid-template-columns: 1fr; } }

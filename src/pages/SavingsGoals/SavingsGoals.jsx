@@ -1,7 +1,6 @@
-﻿import { useState } from "react";
+import styles from './SavingsGoals.module.css'
+import { useState } from "react";
 import ProgressBar from "../../components/common/ProgressBar/ProgressBar";
-import "./SavingsGoals.css";
-
 function SavingsGoals() {
   const [goalName, setGoalName] = useState("");
   const [target, setTarget] = useState("");
@@ -91,16 +90,16 @@ function SavingsGoals() {
 
         <h1 id="savings-heading">Savings Goals</h1>
 
-        <p className="savings-intro">
+        <p className={styles.savingsIntro}>
           Name a goal and see how many months it needs.
           Goals last only for this visit.
         </p>
 
-        <div className="savings-goals-layout">
+        <div className={styles.savingsGoalsLayout}>
 
           {/* LEFT: New goal form */}
 
-          <article className="card new-goal-card">
+          <article className={`card ${styles.newGoalCard}`}>
 
             <h2>New goal</h2>
 
@@ -117,7 +116,7 @@ function SavingsGoals() {
               placeholder="New laptop"
             />
 
-            <div className="goal-input-row">
+            <div className={styles.goalInputRow}>
 
               <div>
                 <label htmlFor="target">
@@ -171,7 +170,7 @@ function SavingsGoals() {
             )}
 
             <button
-              className="btn btn--primary add-goal-button"
+              className={`btn btn--primary ${styles.addGoalButton}`}
               onClick={handleAddGoal}
             >
               Add goal
@@ -182,10 +181,10 @@ function SavingsGoals() {
 
           {/* RIGHT: Goal cards */}
 
-          <div className="goals-list">
+          <div className={styles.goalsList}>
 
             {goals.length === 0 ? (
-              <div className="empty-goals">
+              <div className={styles.emptyGoals}>
                 <p>🎯</p>
                 <h2>Your goals will appear here </h2>
 
@@ -197,16 +196,16 @@ function SavingsGoals() {
             ) : (
               goals.map((goal) => (
                 <article
-                  className="card goal-card"
+                  className={`card ${styles.goalCard}`}
                   key={goal.id}
                 >
 
-                  <div className="goal-card__header">
+                  <div className={styles.goalCardHeader}>
 
                     <h2>{goal.name}</h2>
 
                     <button
-                      className="remove-goal-button"
+                      className={styles.removeGoalButton}
                       onClick={() => handleRemoveGoal(goal.id)}
                     >
                       Remove
@@ -216,7 +215,7 @@ function SavingsGoals() {
 
                   <ProgressBar progress={goal.progress} />
 
-                  <p className="goal-card__summary">
+                  <p className={styles.goalCardSummary}>
                     <strong>
                       ₦{goal.remaining.toLocaleString()}
                     </strong>{" "}
@@ -225,7 +224,7 @@ function SavingsGoals() {
                     month{goal.months !== 1 ? "s" : ""}
                   </p>
 
-                  <p className="goal-card__tip">
+                  <p className={styles.goalCardTip}>
                     Tip: automate your ₦
                     {goal.monthly.toLocaleString()} the day
                     income arrives.

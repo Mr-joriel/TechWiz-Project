@@ -2,11 +2,27 @@
 import styles from './Contact.module.css'
 
 function Contact() {
+  const [values, setValues] = useState({ name: '', email: '', subject: '', message: '' })
+  const [error, setError] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
   function handleSubmit(event) {
     event.preventDefault()
+    if (Object.values(values).some((value) => !value.trim())) {
+      setError('Please complete every field before sending.')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+      setError('Enter a valid email address.')
+      return
+    }
+    setError('')
     setSubmitted(true)
+  }
+
+  function updateField(event) {
+    setValues((current) => ({ ...current, [event.target.name]: event.target.value }))
+    setError('')
   }
 
   if (submitted) {
@@ -15,18 +31,17 @@ function Contact() {
         <div className={styles.success}>
           <div className={styles.successIcon}>✓</div>
 
-          <p className={styles.eyebrow}>MESSAGE SENT</p>
+          <p className={styles.eyebrow}>MESSAGE READY</p>
 
-          <h1>Thanks for reaching out.</h1>
+          <h1>Thanks for preparing a message.</h1>
 
           <p>
-            Your message has been received. We appreciate you taking the time
-            to contact BudgetBasics.
+            Your form passed the local checks. This demonstration does not send or save your message.
           </p>
 
           <button
             className={styles.resetButton}
-            onClick={() => setSubmitted(false)}
+            onClick={() => { setSubmitted(false); setValues({ name: '', email: '', subject: '', message: '' }) }}
           >
             Send another message
           </button>
@@ -80,6 +95,7 @@ function Contact() {
               found something that needs fixing, or have an idea for a new
               feature, send us a message.
             </p>
+            <p className="alert">Contact the Aptech Ajao Estate team using the details below. Social links open Aptech&apos;s official corporate channels.</p>
 
             <div className={styles.infoList}>
 
@@ -88,8 +104,18 @@ function Contact() {
 
                 <div>
                   <p>EMAIL</p>
-                  <strong>support@budgetbasics.com</strong>
+                  <a href="mailto:Aptech_Ajao@gmail.com">Aptech_Ajao@gmail.com</a>
                 </div>
+              </div>
+
+              <div className={styles.infoItem}>
+                <div className={styles.infoIcon}>☎</div>
+                <div><p>APTECH AJAO ESTATE · PHONE</p><a href="tel:+2349037161890">+234 903 716 1890</a></div>
+              </div>
+
+              <div className={styles.infoItem}>
+                <div className={styles.infoIcon}>↗</div>
+                <div><p>OFFICIAL APTECH CHANNELS</p><div className={styles.socialLinks}><a href="https://www.instagram.com/thehouseofaptech/" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.linkedin.com/company/aptech/" target="_blank" rel="noreferrer">LinkedIn</a></div></div>
               </div>
 
               <div className={styles.infoItem}>
@@ -140,9 +166,11 @@ function Contact() {
 
                 <input
                   id="name"
+                  name="name"
                   type="text"
                   placeholder="Your name"
-                  required
+                  value={values.name}
+                  onChange={updateField}
                 />
               </div>
 
@@ -151,9 +179,11 @@ function Contact() {
 
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="you@example.com"
-                  required
+                  value={values.email}
+                  onChange={updateField}
                 />
               </div>
 
@@ -164,9 +194,11 @@ function Contact() {
 
               <input
                 id="subject"
+                name="subject"
                 type="text"
                 placeholder="What would you like to talk about?"
-                required
+                value={values.subject}
+                onChange={updateField}
               />
             </div>
 
@@ -175,19 +207,22 @@ function Contact() {
 
               <textarea
                 id="message"
+                name="message"
                 rows="7"
                 placeholder="Write your message here..."
-                required
+                value={values.message}
+                onChange={updateField}
               />
             </div>
 
             <div className={styles.submitArea}>
+              {error && <p className="alert alert--error" role="alert">{error}</p>}
               <p>
                 We appreciate your message and will review it carefully.
               </p>
 
               <button type="submit" className={styles.submitButton}>
-                Send message →
+                Show confirmation →
               </button>
             </div>
 

@@ -1,5 +1,494 @@
-﻿.page { min-height: 60vh; padding: var(--space-8) 1.5rem; }
-.content { width: min(100%, 72rem); margin: 0 auto; }
-.eyebrow { margin: 0 0 0.7rem; color: var(--primary); font-size: 0.73rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
-.card { padding: var(--space-5); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--ink); background: var(--surface); box-shadow: var(--shadow-sm); }
-@media (max-width: 600px) { .page { padding: var(--space-6) 1rem; } }
+﻿.calculatorCard {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.calculatorCard label {
+  font-weight: 600;
+}
+
+
+.resultsCard {
+  margin-top: var(--space-6);
+}
+
+.budgetLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  gap: 5rem;
+  align-items: center;
+}
+
+
+
+.budgetProgress {
+  padding: var(--space-6);
+
+  border-radius: var(--radius-lg);
+
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.budgetProgress h2 {
+  margin-top: 0;
+  margin-bottom: 1.75rem;
+}
+
+.budgetItem {
+  margin-bottom: 1.75rem;
+}
+
+.budgetItem:last-child {
+  margin-bottom: 0;
+}
+
+.budgetItemHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: 0.6rem;
+}
+
+.budgetItemHeading h3 {
+  margin: 0;
+}
+
+.budgetItemHeading strong {
+  white-space: nowrap;
+}
+
+.budgetItem p {
+  margin-top: 0.6rem;
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.needsProgress {
+  background: var(--needs);
+}
+
+.wantsProgress {
+  background: var(--wants);
+}
+
+.savingsProgress {
+  background: var(--savings);
+}
+
+.budgetChart {
+  text-align: center;
+}
+
+.budgetChart h2 {
+  margin-top: 0;
+}
+
+.donutChart {
+  width: 220px;
+  height: 220px;
+
+  margin: var(--space-5) auto;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    var(--needs) 0% 50%,
+    var(--wants) 50% 80%,
+    var(--savings) 80% 100%
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donutCenter {
+  width: 130px;
+  height: 130px;
+
+  border-radius: 50%;
+
+  background: var(--surface);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ink);
+}
+
+.donutCenter strong {
+  font-size: var(--space-5);
+}
+
+.donutCenter span {
+  margin-top: var(--space-1);
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.chartLabels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.chartLabels p {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  margin: 0;
+}
+
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  display: inline-block;
+}
+
+.needsDot {
+  background: var(--needs);
+}
+
+.wantsDot {
+  background: var(--wants);
+}
+
+.savingsDot {
+  background: var(--savings);
+}
+
+
+
+.learningNote {
+  margin-top: 2.5rem;
+  padding: var(--space-4) var(--space-4);
+
+  border-radius: var(--radius-sm);
+
+  background: var(--surface-soft);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+
+  color: var(--ink-soft);
+}
+
+.learningNote strong {
+  color: var(--ink);
+}
+
+
+@media (max-width: 768px) {
+  .budgetLayout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .budgetProgress {
+    padding: var(--space-5);
+  }
+
+  .budgetChart {
+    padding-bottom: var(--space-4);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .budgetItemHeading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .donutChart {
+    width: 190px;
+    height: 190px;
+  }
+
+  .donutCenter {
+    width: 115px;
+    height: 115px;
+  }
+
+  .learningNote {
+    font-size: 0.9rem;.calculatorCard {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.calculatorCard label {
+  font-weight: 600;
+}
+
+
+.resultsCard {
+  margin-top: var(--space-6);
+}
+
+.budgetLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  gap: 5rem;
+  align-items: center;
+}
+
+
+
+.budgetProgress {
+  padding: var(--space-6);
+
+  border-radius: var(--radius-lg);
+
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.budgetProgress h2 {
+  margin-top: 0;
+  margin-bottom: 1.75rem;
+}
+
+.budgetItem {
+  margin-bottom: 1.75rem;
+}
+
+.budgetItem:last-child {
+  margin-bottom: 0;
+}
+
+.budgetItemHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: 0.6rem;
+}
+
+.budgetItemHeading h3 {
+  margin: 0;
+}
+
+.budgetItemHeading strong {
+  white-space: nowrap;
+}
+
+.budgetItem p {
+  margin-top: 0.6rem;
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* Base geometry for the progress bar â€” this was missing entirely before,
+   so the bars had no height/track/rounding and likely didn't render. */
+.budgetItem .progress {
+  width: 100%;
+  height: 0.65rem;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--surface-soft);
+}
+
+.budgetItem .progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 250ms ease;
+}
+
+.needsProgress {
+  background: var(--needs);
+}
+
+.wantsProgress {
+  background: var(--wants);
+}
+
+.savingsProgress {
+  background: var(--savings);
+}
+
+.budgetChart {
+  text-align: center;
+}
+
+.budgetChart h2 {
+  margin-top: 0;
+}
+
+.donutChart {
+  width: 220px;
+  height: 220px;
+
+  margin: var(--space-5) auto;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    var(--needs) 0% 50%,
+    var(--wants) 50% 80%,
+    var(--savings) 80% 100%
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donutCenter {
+  width: 130px;
+  height: 130px;
+
+  border-radius: 50%;
+
+  background: var(--surface);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ink);
+}
+
+.donutCenter strong {
+  font-size: var(--space-5);
+}
+
+.donutCenter span {
+  margin-top: var(--space-1);
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.chartLabels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.chartLabels p {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  margin: 0;
+}
+
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  display: inline-block;
+}
+
+.needsDot {
+  background: var(--needs);
+}
+
+.wantsDot {
+  background: var(--wants);
+}
+
+.savingsDot {
+  background: var(--savings);
+}
+
+
+
+.learningNote {
+  margin-top: 2.5rem;
+  padding: var(--space-4) var(--space-4);
+
+  border-radius: var(--radius-sm);
+
+  background: var(--surface-soft);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+
+  color: var(--ink-soft);
+}
+
+.learningNote strong {
+  color: var(--ink);
+}
+
+
+@media (max-width: 768px) {
+  .budgetLayout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .budgetProgress {
+    padding: var(--space-5);
+  }
+
+  .budgetChart {
+    padding-bottom: var(--space-4);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .budgetItemHeading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .donutChart {
+    width: 190px;
+    height: 190px;
+  }
+
+  .donutCenter {
+    width: 115px;
+    height: 115px;
+  }
+
+  .learningNote {
+    font-size: 0.9rem;
+  }
+}
+  }
+}

@@ -1,20 +1,14 @@
+import styles from './ProgressBar.module.css'
+
 function ProgressBar({ progress }) {
-  let currentProgress = progress;
-
-  if (currentProgress < 0) {
-    currentProgress = 0;
-  }
-
-  if (currentProgress > 100) {
-    currentProgress = 100;
-  }
+  const numericProgress = Number(progress)
+  const currentProgress = Number.isFinite(numericProgress)
+    ? Math.min(Math.max(numericProgress, 0), 100)
+    : 0
 
   return (
-    <div className="progress">
-      <div
-        className="progress__fill"
-        style={{ width: `${currentProgress}%` }}
-      ></div>
+    <div className={`progress ${styles.track}`} role="progressbar" aria-label="Savings goal progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(currentProgress)}>
+      <div className={styles.fill} style={{ width: `${currentProgress}%` }} />
     </div>
   );
 }

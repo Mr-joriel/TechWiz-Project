@@ -1,165 +1,55 @@
-﻿import { useState } from 'react'
+﻿import { useMemo, useState } from 'react'
+import infographics from '../../data/infographics.json'
 import styles from './Infographics.module.css'
 
-const steps = [
-  {
-    number: '01',
-    title: 'Know your income',
-    description:
-      'Start by understanding how much money comes in each month. This gives you a clear starting point for your budget.',
-    icon: '₦',
-  },
-  {
-    number: '02',
-    title: 'Track your spending',
-    description:
-      'See where your money goes by separating your essential expenses from things you spend on occasionally.',
-    icon: '↗',
-  },
-  {
-    number: '03',
-    title: 'Set your limits',
-    description:
-      'Give each spending category a realistic limit so you know how much you can safely spend.',
-    icon: '◈',
-  },
-  {
-    number: '04',
-    title: 'Save & adjust',
-    description:
-      'Put money toward your goals, review your progress, and adjust your budget when your situation changes.',
-    icon: '✓',
-  },
-]
+const images = import.meta.glob('../../assets/images/*.svg', { eager: true, query: '?url', import: 'default' })
+const topics = ['All topics', ...new Set(infographics.map((item) => item.topic))]
 
 function Infographics() {
-  const [activeStep, setActiveStep] = useState(0)
+  const [query, setQuery] = useState('')
+  const [topic, setTopic] = useState('All topics')
+  const [sort, setSort] = useState('title-asc')
 
-  const currentStep = steps[activeStep]
+  const visibleItems = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase()
+    return infographics
+      .filter((item) => topic === 'All topics' || item.topic === topic)
+      .filter((item) => !normalizedQuery || `${item.title} ${item.caption}`.toLocaleLowerCase().includes(normalizedQuery))
+      .sort((first, second) => {
+        if (sort === 'title-desc') return second.title.localeCompare(first.title)
+        if (sort === 'topic-asc') return first.topic.localeCompare(second.topic) || first.title.localeCompare(second.title)
+        return first.title.localeCompare(second.title)
+      })
+  }, [query, topic, sort])
 
   return (
     <section className={styles.page} aria-labelledby="infographics-heading">
       <div className={styles.content}>
-
-        <div className={styles.hero}>
-          <div>
-            <p className={styles.eyebrow}>BUDGETBASICS · MONEY GUIDE</p>
-
-            <h1 id="infographics-heading">
-              How budgeting
-              <span> actually works.</span>
-            </h1>
-
-            <p className={styles.intro}>
-              A budget isn't about restricting yourself. It's about knowing
-              where your money is going and giving every naira a purpose.
-            </p>
+        <header className={styles.hero}>
+          <div className={styles.heroCopy}>
+            <p className={styles.eyebrow}>BudgetBasics · Visual learning</p>
+            <h1 id="infographics-heading">Money ideas,<br /><span>made clearer.</span></h1>
+            <p className={styles.intro}>Browse short visual guides to budgeting, spending, and saving. Search by topic or explore the full collection.</p>
           </div>
+          <div className={styles.heroNote} aria-hidden="true"><span>✳</span><strong>Learn a little.<br />Use it every day.</strong><small>{infographics.length} illustrated guides</small></div>
+        </header>
 
-          <div className={styles.heroBadge}>
-            <span className={styles.badgeIcon}>₦</span>
-            <div>
-              <strong>Money in control</strong>
-              <small>One step at a time</small>
-            </div>
+        <section className={styles.gallery} aria-labelledby="gallery-heading">
+          <div className={styles.galleryHeading}><div><p className={styles.eyebrow}>The learning gallery</p><h2 id="gallery-heading">Explore money topics</h2></div><span className={styles.resultCount} aria-live="polite">{visibleItems.length} {visibleItems.length === 1 ? 'guide' : 'guides'}</span></div>
+          <div className={styles.controls}>
+            <label className={styles.search}><span aria-hidden="true">⌕</span><span className="sr-only">Search infographics</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search titles or descriptions" /></label>
+            <label className={styles.sort}>Sort by <select value={sort} onChange={(event) => setSort(event.target.value)}><option value="title-asc">Title: A to Z</option><option value="title-desc">Title: Z to A</option><option value="topic-asc">Topic</option></select></label>
           </div>
-        </div>
+          <div className={styles.filters} role="group" aria-label="Filter by topic">{topics.map((item) => <button type="button" key={item} className={`${styles.filter} ${topic === item ? styles.filterActive : ''}`} aria-pressed={topic === item} onClick={() => setTopic(item)}>{item}</button>)}</div>
 
-        <div className={styles.infographic}>
-
-          <div className={styles.stepList}>
-            {steps.map((step, index) => (
-              <button
-                key={step.number}
-                type="button"
-                className={`${styles.stepButton} ${
-                  activeStep === index ? styles.active : ''
-                }`}
-                onClick={() => setActiveStep(index)}
-                aria-pressed={activeStep === index}
-              >
-                <span className={styles.stepNumber}>{step.number}</span>
-
-                <span className={styles.stepText}>
-                  <strong>{step.title}</strong>
-                  <small>
-                    {index === 0 && 'Start here'}
-                    {index === 1 && 'Understand your habits'}
-                    {index === 2 && 'Plan your spending'}
-                    {index === 3 && 'Build your future'}
-                  </small>
-                </span>
-
-                <span className={styles.arrow}>→</span>
-              </button>
-            ))}
-          </div>
-
-          <div className={styles.detailCard}>
-            <div className={styles.detailTop}>
-              <span className={styles.detailIcon}>
-                {currentStep.icon}
-              </span>
-
-              <span className={styles.progress}>
-                {String(activeStep + 1).padStart(2, '0')} / 04
-              </span>
-            </div>
-
-            <p className={styles.detailLabel}>
-              STEP {currentStep.number}
-            </p>
-
-            <h2>{currentStep.title}</h2>
-
-            <p className={styles.detailDescription}>
-              {currentStep.description}
-            </p>
-
-            <div className={styles.progressBar}>
-              <span
-                style={{
-                  width: `${((activeStep + 1) / steps.length) * 100}%`,
-                }}
-              />
-            </div>
-
-            <div className={styles.detailFooter}>
-              <span>
-                {activeStep === steps.length - 1
-                  ? 'You understand the basics'
-                  : 'Keep going'}
-              </span>
-
-              {activeStep < steps.length - 1 && (
-                <button
-                  type="button"
-                  onClick={() => setActiveStep(activeStep + 1)}
-                  className={styles.nextButton}
-                >
-                  Next step →
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.bottomSection}>
-          <div>
-            <p className={styles.eyebrow}>THE BIG IDEA</p>
-            <h2>
-              Your budget should work
-              <span> for you.</span>
-            </h2>
-          </div>
-
-          <p>
-            Budgeting becomes easier when you turn it into a simple routine:
-            understand your income, track your spending, plan ahead, and
-            review your progress.
-          </p>
-        </div>
-
+          {visibleItems.length ? <div className={styles.grid}>{visibleItems.map((item, index) => {
+            const imageUrl = images[`../../assets/images/${item.image}`]
+            return <article className={styles.card} key={item.id}>
+              <div className={styles.imageFrame}><img src={imageUrl} alt={item.imageAlt} loading={index < 3 ? 'eager' : 'lazy'} /><span className={styles.topicBadge}>{item.topic}</span></div>
+              <div className={styles.cardBody}><h3>{item.title}</h3><p>{item.caption}</p><span className={styles.cardFooter}>Visual guide <span aria-hidden="true">↗</span></span></div>
+            </article>
+          })}</div> : <div className={styles.empty} role="status"><span aria-hidden="true">⌕</span><h3>No matching infographics</h3><p>Try another search term or choose a different topic.</p><button className="btn btn--secondary" type="button" onClick={() => { setQuery(''); setTopic('All topics') }}>Clear filters</button></div>}
+        </section>
       </div>
     </section>
   )

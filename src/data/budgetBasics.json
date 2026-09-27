@@ -3,36 +3,42 @@
     "id": "income",
     "emoji": "💵",
     "title": "Income",
-    "description": "Allowance, part-time pay, gifts. Anything coming in."
+    "description": "Allowance, part-time pay, gifts. Anything coming in.",
+    "details": "Income is any money that comes to you — a monthly allowance from home, a part-time job, a scholarship stipend, or even a birthday gift. Before you can plan a budget, you need to know your total income for the month, since every other category is built as a share of this number. Irregular income (like a gift) is safer to leave out of your regular plan and treat as a bonus toward savings instead."
   },
   {
     "id": "fixed",
     "emoji": "📌",
     "title": "Fixed expenses",
-    "description": "Same every month: rent, data plan, transport pass."
+    "description": "Same every month: rent, data plan, transport pass.",
+    "details": "Fixed expenses stay roughly the same amount every month, which makes them the easiest to plan for. Hostel or rent contributions, a monthly data subscription, and a transport pass are common student examples. Because these rarely change, list them first when building a budget — whatever is left over is what you have to work with for everything else."
   },
   {
     "id": "variable",
     "emoji": "🔄",
     "title": "Variable expenses",
-    "description": "Changes monthly: food, outings, printing."
+    "description": "Changes monthly: food, outings, printing.",
+    "details": "Variable expenses change from month to month depending on your choices and circumstances — food, printing costs, transport top-ups, or social outings. These are the easiest category to lose track of, since no single purchase feels significant on its own. Tracking variable spending for even one week usually reveals patterns you didn't notice."
   },
   {
     "id": "requirements",
     "emoji": "✅",
     "title": "Requirements",
-    "description": "What keeps you safe and studying."
+    "description": "What keeps you safe and studying.",
+    "details": "Requirements (also called needs) are anything you genuinely cannot do without — safe housing, enough food, course materials, and a way to get to class. A simple test: if skipping it would put your health, safety, or studies at risk, it's a requirement, not a preference."
   },
   {
     "id": "wants",
     "emoji": "🛍️",
     "title": "Wants",
-    "description": "Nice to have, not essential."
+    "description": "Nice to have, not essential.",
+    "details": "Wants make life more enjoyable but aren't essential to your wellbeing or your studies — eating out, streaming subscriptions, new clothes when your current ones are fine, or the latest phone. There's nothing wrong with spending on wants; the goal is simply to plan for them deliberately instead of letting them quietly use up money meant for needs or savings."
   },
   {
     "id": "savings",
     "emoji": "🐷",
     "title": "Savings",
-    "description": "Money set aside on purpose."
+    "description": "Money set aside on purpose.",
+    "details": "Savings is money you deliberately set aside rather than spend — whether for an emergency fund, a specific goal like a laptop, or just building a habit. The most reliable approach is to treat savings like a fixed expense: decide on an amount and set it aside as soon as income arrives, rather than saving only whatever happens to be left at the end of the month."
   }
 ]

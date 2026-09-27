@@ -37,11 +37,9 @@ Introduces the building blocks of a student budget.
   accordingly, and reveals the matching feedback message underneath.
 
 **Sub-component — BudgetCard:**
-A small, stateless presentational component used to render each item in
-the card grid. Takes `emoji`, `title`, and `description` as props and
-displays them inside a standard `.card` article. No logic of its own —
-purely a display shell driven entirely by whatever `budgetBasics.json`
-provides.
+A reusable card component renders each concept from the local JSON data.
+It accepts the concept details, and a keyboard-operable button expands
+or collapses the additional explanation for that concept.
 
 ---
 
@@ -108,7 +106,8 @@ An expandable list of five common student money mistakes.
 
 ## Design notes
 All three pages use the project's shared design tokens (`--primary`,
-`--success`, `--danger`, `--needs`, `--wants`, spacing scale) — either via
-CSS Modules scoped per component, or (in the case of `KnowledgeCheck`)
-inline styles referencing the same CSS custom properties — keeping
-everything visually consistent with the rest of the site.
+`--success`, `--danger`, `--needs`, `--wants`, spacing scale) through
+colocated CSS Modules. `BudgetCard` expands with keyboard-operable
+controls to reveal more detail, and `KnowledgeCheck` has its own CSS
+Module. This keeps the learning pages consistent with the shared site
+design while adapting their layouts to small and large screens.

@@ -1,5 +1,265 @@
-﻿.page { min-height: 60vh; padding: var(--space-8) 1.5rem; }
-.content { width: min(100%, 72rem); margin: 0 auto; }
-.eyebrow { margin: 0 0 0.7rem; color: var(--primary); font-size: 0.73rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
-.card { padding: var(--space-5); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--ink); background: var(--surface); box-shadow: var(--shadow-sm); }
-@media (max-width: 600px) { .page { padding: var(--space-6) 1rem; } }
+/* =========================
+   PAGE INTRO
+   ========================= */
+
+.savingsIntro {
+  margin-bottom: 2.5rem;
+}
+
+
+/* =========================
+   MAIN LAYOUT
+   ========================= */
+
+.savingsGoalsLayout {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: var(--space-6);
+
+  align-items: start;
+}
+
+
+/* =========================
+   LEFT - NEW GOAL
+   ========================= */
+
+.newGoalCard {
+  padding: var(--space-6);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-4);
+}
+
+.newGoalCard h2 {
+  margin-top: 0;
+  margin-bottom: var(--space-1);
+}
+
+.newGoalCard label {
+  font-weight: 600;
+}
+
+
+/* Two inputs side by side */
+
+.goalInputRow {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: var(--space-4);
+}
+
+.goalInputRow > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--space-4);
+}
+
+
+/* Add goal button */
+
+.addGoalButton {
+  align-self: flex-start;
+
+  margin-top: var(--space-2);
+}
+
+
+/* =========================
+   RIGHT - GOALS LIST
+   ========================= */
+
+.goalsList {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--space-5);
+}
+
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+
+.emptyGoals {
+  min-height: 220px;
+
+  padding: var(--space-6);
+
+  border-radius: var(--radius-lg);
+
+  border: 1px dashed var(--border);
+
+  background: var(--surface-soft);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+.emptyGoals h2 {
+  margin-top: 0;
+}
+
+.emptyGoals p {
+  color: var(--ink-soft);
+
+  margin-bottom: 0;
+}
+
+
+/* =========================
+   GOAL CARD
+   ========================= */
+
+.goalCard {
+  padding: var(--space-6);
+}
+
+
+/* Goal name + remove button */
+
+.goalCardHeader {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-4);
+}
+
+.goalCardHeader h2 {
+  margin: 0;
+}
+
+
+/* =========================
+   REMOVE BUTTON
+   ========================= */
+
+.removeGoalButton {
+  border: none;
+
+  border-radius: var(--radius-pill);
+
+  padding: 0.7rem 1.var(--space-4);
+
+  background: color-mix(in srgb, var(--danger) 18%, var(--surface));
+
+  color: var(--danger);
+
+  font-size: 0.95rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.removeGoalButton:hover {
+  background: color-mix(in srgb, var(--danger) 28%, var(--surface));
+}
+
+
+/* =========================
+   GOAL DETAILS
+   ========================= */
+
+.goalCardSummary {
+  margin-top: var(--space-4);
+
+  margin-bottom: var(--space-2);
+
+  font-size: var(--space-4);
+}
+
+.goalCardTip {
+  margin: 0;
+
+  color: var(--ink-soft);
+}
+
+
+/* =========================
+   PROGRESS BAR
+   ========================= */
+
+.goalCard .progress {
+  width: 100%;
+
+  height: 0.65rem;
+
+  overflow: hidden;
+
+  border-radius: var(--radius-pill);
+
+  background: var(--surface-soft);
+}
+
+.goalCard .progress__fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--savings);
+
+  transition: width 250ms ease;
+}
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 850px) {
+
+  .savingsGoalsLayout {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  .newGoalCard,
+  .goalCard {
+    padding: var(--space-5);
+  }
+
+  .goalInputRow {
+    grid-template-columns: 1fr;
+  }
+
+  .goalCardHeader {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .addGoalButton {
+    width: 100%;
+  }
+
+}

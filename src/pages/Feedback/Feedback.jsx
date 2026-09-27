@@ -10,18 +10,27 @@ const topics = [
 ]
 
 function Feedback() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [rating, setRating] = useState(0)
   const [topic, setTopic] = useState('')
   const [message, setMessage] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
 
   function handleSubmit(event) {
     event.preventDefault()
 
-    if (!rating || !topic || !message.trim()) {
+    if (!name.trim() || !email.trim() || !rating || !topic || !message.trim()) {
+      setError('Please complete your name, email, rating, topic, and comments.')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Enter a valid email address.')
       return
     }
 
+    setError('')
     setSubmitted(true)
   }
 
@@ -33,17 +42,18 @@ function Feedback() {
 
           <p className={styles.eyebrow}>THANK YOU</p>
 
-          <h1>Your feedback has been received.</h1>
+          <h1>Thanks for sharing your feedback.</h1>
 
           <p>
-            Thanks for taking the time to help us improve BudgetBasics.
-            Your feedback helps us build a better experience for everyone.
+            Your form passed the local checks. This demonstration does not send or save your feedback.
           </p>
 
           <button
             className={styles.resetButton}
             onClick={() => {
               setSubmitted(false)
+              setName('')
+              setEmail('')
               setRating(0)
               setTopic('')
               setMessage('')
@@ -84,6 +94,15 @@ function Feedback() {
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
+
+          <div className={styles.identityGrid}>
+            <label className={styles.identityField} htmlFor="feedback-name">Name
+              <input id="feedback-name" value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" maxLength={80} />
+            </label>
+            <label className={styles.identityField} htmlFor="feedback-email">Email
+              <input id="feedback-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" maxLength={254} />
+            </label>
+          </div>
 
           <div className={styles.formHeader}>
             <div>
@@ -156,12 +175,13 @@ function Feedback() {
           </div>
 
           <div className={styles.submitArea}>
+            {error && <p className="alert alert--error" role="alert">{error}</p>}
             <p>
               Your feedback helps shape the future of BudgetBasics.
             </p>
 
             <button type="submit" className={styles.submitButton}>
-              Send feedback →
+              Review feedback →
             </button>
           </div>
 

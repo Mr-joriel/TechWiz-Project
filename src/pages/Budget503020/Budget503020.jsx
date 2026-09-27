@@ -1,6 +1,5 @@
-﻿import { useState } from "react";
-import "./Budget503020.css";
-
+import styles from './Budget503020.module.css'
+import { useState } from "react";
 function Budget503020() {
   const [income, setIncome] = useState("");
   const [error, setError] = useState("");
@@ -41,7 +40,7 @@ function Budget503020() {
           Learn how to divide your income between needs, wants and savings.
         </p>
 
-        <article className="card calculator-card">
+        <article className={`card ${styles.calculatorCard}`}>
           <label htmlFor="income">Monthly income (₦)</label>
 
           <input
@@ -68,15 +67,15 @@ function Budget503020() {
         </article>
 
         {budget && (
-          <article className="card results-card">
-            <div className="budget-layout">
+          <article className={`card ${styles.resultsCard}`}>
+            <div className={styles.budgetLayout}>
 
   
-              <div className="budget-progress">
+              <div className={styles.budgetProgress}>
                 <h2>Your budget breakdown</h2>
 
-                <div className="budget-item">
-                  <div className="budget-item__heading">
+                <div className={styles.budgetItem}>
+                  <div className={styles.budgetItemHeading}>
                     <h3>Needs · 50%</h3>
                     <strong>
                       ₦{budget.needs.toLocaleString()}
@@ -85,7 +84,7 @@ function Budget503020() {
 
                   <div className="progress">
                     <div
-                      className="progress__fill needs-progress"
+                      className={`progress__fill ${styles.needsProgress}`}
                       style={{ width: "50%" }}
                     ></div>
                   </div>
@@ -93,8 +92,8 @@ function Budget503020() {
                   <p>Rent, food, transport, data</p>
                 </div>
 
-                <div className="budget-item">
-                  <div className="budget-item__heading">
+                <div className={styles.budgetItem}>
+                  <div className={styles.budgetItemHeading}>
                     <h3>Wants · 30%</h3>
                     <strong>
                       ₦{budget.wants.toLocaleString()}
@@ -103,7 +102,7 @@ function Budget503020() {
 
                   <div className="progress">
                     <div
-                      className="progress__fill wants-progress"
+                      className={`progress__fill ${styles.wantsProgress}`}
                       style={{ width: "30%" }}
                     ></div>
                   </div>
@@ -111,8 +110,8 @@ function Budget503020() {
                   <p>Streaming, outings, clothes</p>
                 </div>
 
-                <div className="budget-item">
-                  <div className="budget-item__heading">
+                <div className={styles.budgetItem}>
+                  <div className={styles.budgetItemHeading}>
                     <h3>Savings · 20%</h3>
                     <strong>
                       ₦{budget.savings.toLocaleString()}
@@ -121,7 +120,7 @@ function Budget503020() {
 
                   <div className="progress">
                     <div
-                      className="progress__fill savings-progress"
+                      className={`progress__fill ${styles.savingsProgress}`}
                       style={{ width: "20%" }}
                     ></div>
                   </div>
@@ -130,29 +129,29 @@ function Budget503020() {
                 </div>
               </div>
 
-              <div className="budget-chart">
+              <div className={styles.budgetChart}>
                 <h2>Budget chart</h2>
 
-                <div className="donut-chart">
-                  <div className="donut-center">
+                <div className={styles.donutChart}>
+                  <div className={styles.donutCenter}>
                     <strong>100%</strong>
                     <span>Income</span>
                   </div>
                 </div>
 
-                <div className="chart-labels">
+                <div className={styles.chartLabels}>
                   <p>
-                    <span className="legend-dot needs-dot"></span>
+                    <span className={`${styles.legendDot} ${styles.needsDot}`}></span>
                     Needs · 50%
                   </p>
 
                   <p>
-                    <span className="legend-dot wants-dot"></span>
+                    <span className={`${styles.legendDot} ${styles.wantsDot}`}></span>
                     Wants · 30%
                   </p>
 
                   <p>
-                    <span className="legend-dot savings-dot"></span>
+                    <span className={`${styles.legendDot} ${styles.savingsDot}`}></span>
                     Savings · 20%
                   </p>
                 </div>
@@ -160,7 +159,7 @@ function Budget503020() {
 
             </div>
 
-            <div className="learning-note">
+            <div className={styles.learningNote}>
               <strong>This is an estimate for learning only.</strong>
               <span>
                 The 50-30-20 split is a guideline and can be adjusted.

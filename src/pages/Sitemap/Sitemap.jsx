@@ -4,7 +4,7 @@ import styles from './Sitemap.module.css'
 const pageGroups = [
   { title: 'Learn', intro: 'Build practical money knowledge.', icon: '◫', pages: [['Budgeting Basics', '/basics', 'Start with income, spending and savings.'], ['Needs vs Wants', '/needs-wants', 'Make thoughtful choices about spending.'], ['Money Mistakes', '/mistakes', 'Spot common habits and learn helpful fixes.'], ['Infographics', '/gallery', 'Explore visual guides to money topics.']] },
   { title: 'Plan', intro: 'Put what you learn into practice.', icon: '◎', pages: [['50-30-20 Rule', '/calculator', 'Create a simple spending estimate.'], ['Savings Goals', '/goals', 'Make a goal and plan your next steps.'], ['Expense Planner', '/planner', 'Organize spending in one place.']] },
-  { title: 'More', intro: 'Get to know BudgetBasics.', icon: '✳', pages: [['Home', '/', 'Return to your starting point.'], ['AI Chatbot', '/assistant', 'Explore common budgeting questions.'], ['About Us', '/about', 'Learn why BudgetBasics was created.'], ['Feedback', '/feedback', 'Tell us what you think.'], ['Contact Us', '/contact', 'Find our contact details.']] },
+  { title: 'More', intro: 'Get to know BudgetBasics.', icon: '✳', pages: [['Home', '/', 'Return to your starting point.'], ['AI Chatbot', '/assistant', 'Explore common budgeting questions.'], ['About Us', '/about', 'Learn why BudgetBasics was created.'], ['Feedback', '/feedback', 'Tell us what you think.'], ['Contact Us', '/contact', 'Find our contact details.'], ['Sitemap', '/sitemap', 'View all BudgetBasics pages.']] },
 ]
 
 function Sitemap() {

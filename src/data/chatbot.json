@@ -1,1 +1,7 @@
-﻿[]
+[
+  { "id": "needs", "keywords": ["need", "needs", "essential"], "answer": "A need is something important for health, safety, or education, such as food, basic housing, or required course materials." },
+  { "id": "save", "keywords": ["save", "saving", "savings", "goal"], "answer": "Choose a clear savings goal, decide on an amount you can manage regularly, and set it aside when income arrives. Small consistent contributions can build over time." },
+  { "id": "overspend", "keywords": ["overspend", "overspending", "impulse", "spending", "expense"], "answer": "Track your spending for a week, set a limit for flexible categories, and try a 24-hour pause before non-essential purchases." },
+  { "id": "budget", "keywords": ["budget", "income", "allowance", "plan"], "answer": "Write down your income, list essential and regular costs, then plan flexible spending and savings with what remains. Review your plan as the month changes." },
+  { "id": "debt", "keywords": ["debt", "loan", "owe"], "answer": "List what you owe and each due date. Prioritize required payments, avoid taking on new costs you cannot manage, and seek trusted professional guidance for complex debt questions." }
+]

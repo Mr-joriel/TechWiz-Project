@@ -1,56 +1,25 @@
 # BudgetBasics
 
-BudgetBasics is a student-focused budgeting education single-page app built with React, Vite, and React Router. It runs entirely in the browser: there is no backend, database, or real sign-in. Content belongs in local JSON files under `src/data/`.
+BudgetBasics is a student-focused budgeting education website built with React, Vite, and React Router. The app runs in the browser and has no backend, database, login, or real financial transactions.
 
-## Run the app
+## Start the app
 
-Open a terminal in the app folder (the folder containing `package.json`):
+Open a terminal in the BudgetBasics directory, where `package.json` is located. Install dependencies with `npm install`, then start the development server with `npm run dev`. Vite prints the local address. The parent TechWiz folder is a workspace container and does not have the app package file.
 
-```bash
-cd BudgetBasics
-npm install
-npm run dev
-```
+To check the app before submission, run the ESLint check with `npm run lint` and make a production build with `npm run build` from the BudgetBasics directory.
 
-If your terminal is already inside `BudgetBasics`, run `npm run dev` there. The parent `TechWiz` folder is only the workspace container and does not contain the app's `package.json`.
+## Project map
 
-## Project conventions
+- `src/App.jsx` defines all page routes and the shared site shell.
+- `src/components/common/` contains the reusable Navbar, Footer, ThemeToggle, BackToTop, and ProgressBar components.
+- `src/pages/` contains one folder per route and shared page-level pieces.
+- `src/data/` contains local JSON learning and sample content.
+- `src/assets/images/` contains the project’s locally authored SVG learning illustrations.
+- `src/styles/style.css` defines global resets, theme tokens, accessibility helpers, and shared controls.
+- Page and component styling belongs in colocated CSS Modules.
 
-- Routes and shared site shell: `src/App.jsx`
-- Reusable UI: `src/components/common/`
-- One folder per route: `src/pages/<PageName>/`
-- Local content: `src/data/*.json`
-- Global tokens, reset, accessibility helpers, and shared controls: `src/styles/style.css`
-- Import the colocated `<PageName>.module.css` in each page. Use CSS Modules for page-specific styles.
-- Component styles belong in a colocated component `.module.css` beside the JSX file.
-- Use shared tokens (`--bg`, `--surface`, `--surface-soft`, `--ink`, `--ink-soft`, `--primary`, `--needs`, `--wants`, `--savings`, `--success`, `--danger`, and `--space-1` through `--space-8`).
-- Reuse `.btn`, `.card`, `.input`, `.alert`, `.table`, `.badge`, and `.progress` where useful. Do not hardcode page colors.
-- Keep any visitor name or visit count in browser `localStorage` only. Never send it to a service.
-- Chatbot content must say it is not professional financial advice. Calculator outputs are estimates for learning only.
+## Collaboration conventions
 
-## Page component starting point
+Use the shared CSS variables for color, spacing, radius, and shadows. Keep page-specific styling in the page’s CSS Module. Keep educational text and quiz/gallery/chatbot entries in local JSON when the feature is data-driven. Do not add a backend, real login, server storage, financial transactions, or network submission of form data. Calculator results are learning estimates, and chatbot content must retain its financial education disclaimer.
 
-```jsx
-import styles from './ExamplePage.module.css'
-
-function ExamplePage() {
-  return (
-    <section className={styles.page} aria-labelledby="example-heading">
-      <div className={styles.content}>
-        <p className={styles.eyebrow}>Section name</p>
-        <h1 id="example-heading">Page title</h1>
-        <article className={styles.card}>Page content</article>
-      </div>
-    </section>
-  )
-}
-
-export default ExamplePage
-```
-
-## Build and check style rules
-
-```bash
-npm run lint
-npm run build
-```
+The intended workflow is contributor feature branch, pull request into `develop`, then a reviewed pull request from `develop` into `main`.

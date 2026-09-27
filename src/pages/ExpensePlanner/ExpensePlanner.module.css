@@ -1,5 +1,257 @@
-﻿.page { min-height: 60vh; padding: var(--space-8) 1.5rem; }
-.content { width: min(100%, 72rem); margin: 0 auto; }
-.eyebrow { margin: 0 0 0.7rem; color: var(--primary); font-size: 0.73rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
-.card { padding: var(--space-5); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--ink); background: var(--surface); box-shadow: var(--shadow-sm); }
-@media (max-width: 600px) { .page { padding: var(--space-6) 1rem; } }
+.plannerIntro {
+  margin-bottom: 2.5rem;
+}
+
+.plannerLayout {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: var(--space-6);
+
+  align-items: start;
+}
+
+
+.plannerFormCard {
+  padding: var(--space-6);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-4);
+}
+
+.plannerFormCard label {
+  font-weight: 600;
+}
+
+.plannerFormCard h2 {
+  margin-top: var(--space-1);
+  margin-bottom: 0;
+}
+
+
+
+
+.plannerDivider {
+  width: 100%;
+
+  height: 1px;
+
+  margin: var(--space-2) 0;
+
+  background: var(--border);
+}
+
+
+
+
+.expenseInputRow {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: var(--space-4);
+}
+
+.expenseInputRow > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--space-3);
+}
+
+
+/* Buttons */
+
+.plannerButtons {
+  display: flex;
+
+  gap: var(--space-3);
+
+  margin-top: var(--space-2);
+}
+
+
+
+
+.plannerResults {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--space-5);
+}
+
+
+
+
+.budgetSummary {
+  padding: var(--space-6);
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: var(--space-5);
+}
+
+.summaryItem {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.4rem;
+}
+
+.summaryItem span {
+  color: var(--ink-soft);
+
+  font-size: 0.95rem;
+}
+
+.summaryItem strong {
+  font-size: 1.8rem;
+}
+
+.remainingPositive {
+  color: var(--success);
+}
+
+.remainingNegative {
+  color: var(--danger);
+}
+
+
+
+.plannerProgress {
+  grid-column: 1 / -1;
+
+  margin-top: var(--space-2);
+}
+
+.plannerProgressBar {
+  width: 100%;
+
+  height: 0.65rem;
+
+  overflow: hidden;
+
+  border-radius: var(--radius-pill);
+
+  background: var(--surface-soft);
+}
+
+.plannerProgressFill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--primary);
+
+  transition: width 250ms ease;
+}
+
+.plannerProgress p {
+  margin-top: 0.6rem;
+
+  margin-bottom: 0;
+
+  color: var(--ink-soft);
+}
+
+
+.emptyExpenses {
+  min-height: 250px;
+
+  padding: var(--space-6);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+.emptyExpensesIcon {
+  font-size: 3rem;
+
+  margin-bottom: var(--space-4);
+}
+
+.emptyExpenses h2 {
+  margin-top: 0;
+}
+
+.emptyExpenses p {
+  color: var(--ink-soft);
+
+  margin-bottom: 0;
+}
+
+
+/*EXPENSE TABLE*/
+
+.expensesCard {
+  padding: var(--space-6);
+}
+
+.expensesCard h2 {
+  margin-top: 0;
+}
+
+.expenseActions {
+  display: flex;
+
+  gap: var(--space-2);
+}
+
+
+/*TABLET */
+
+@media (max-width: 900px) {
+
+  .plannerLayout {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* MOBILE*/
+
+@media (max-width: 600px) {
+
+  .plannerFormCard,
+  .budgetSummary,
+  .expensesCard {
+    padding: var(--space-4);
+  }
+
+  .expenseInputRow {
+    grid-template-columns: 1fr;
+  }
+
+  .budgetSummary {
+    grid-template-columns: 1fr;
+  }
+
+  .plannerProgress {
+    grid-column: auto;
+  }
+
+  .plannerButtons {
+    flex-direction: column;
+  }
+
+  .plannerButtons .btn {
+    width: 100%;
+  }
+
+}

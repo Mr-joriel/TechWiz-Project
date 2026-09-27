@@ -1,0 +1,9 @@
+.card { display: flex; min-height: 11rem; flex-direction: column; padding: var(--space-4); }
+.trigger { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-3); padding: 0; border: 0; color: var(--ink); background: transparent; text-align: left; cursor: pointer; }
+.icon { display: grid; width: 2.7rem; height: 2.7rem; place-items: center; border-radius: var(--radius-sm); background: var(--surface-soft); font-size: 1.2rem; }
+.title { font-size: 1rem; font-weight: 800; }
+.expandIcon { display: grid; width: 1.8rem; height: 1.8rem; place-items: center; border: 1px solid var(--border); border-radius: 50%; color: var(--primary); font-size: 1.15rem; }
+.description { margin: var(--space-3) 0 0; color: var(--ink-soft); font-size: 0.84rem; line-height: 1.6; }
+.details { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--border); color: var(--ink-soft); font-size: 0.82rem; line-height: 1.65; }
+.details p { margin: 0; }
+.trigger:hover .title { color: var(--primary); }

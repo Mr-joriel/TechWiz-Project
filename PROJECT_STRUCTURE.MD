@@ -15,7 +15,7 @@ An educational budgeting website for students, built as a Single Page Applicatio
 
 ## Live reference demo
 
-**https://claude.ai/artifact/3dYvSTjeXzni2W1tM46LBM**
+**https://mr-joriel.github.io/TechWiz-Project/budgetbasics-demo.html#**
 
 Open it next to your editor. It shows how each page should look and behave. Build **your own React version**, don't copy its code (it is plain JS, and yours must be React). Its colours are just a starting idea — the actual app now uses the teal/green palette below, so match your build to `style.css`, not the demo's indigo.
 
